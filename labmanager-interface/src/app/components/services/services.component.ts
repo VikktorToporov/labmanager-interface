@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ExaminationService } from 'src/app/services/examination-service';
 
 @Component({
   selector: 'app-services',
@@ -6,60 +7,21 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./services.component.scss']
 })
 export class ServicesComponent implements OnInit {
-  publicLinks = [
-    {
-      title: 'Vaccination',
-      icon: '../../../assets/check-list.png',
-      link: null,
-      text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla facilisis vitae nisl vitae iaculis.',
-    },
-    {
-      title: 'COVID-19 Test',
-      icon: '../../../assets/check-list.png',
-      link: null,
-      text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla facilisis vitae nisl vitae iaculis.',
-    },
-    {
-      title: 'Some Test',
-      icon: '../../../assets/check-list.png',
-      link: null,
-      text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla facilisis vitae nisl vitae iaculis.',
-    },
-    {
-      title: 'Another Test',
-      icon: '../../../assets/check-list.png',
-      link: null,
-      text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla facilisis vitae nisl vitae iaculis.',
-    },
-    {
-      title: 'Vaccination',
-      icon: '../../../assets/check-list.png',
-      link: null,
-      text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla facilisis vitae nisl vitae iaculis.',
-    },
-    {
-      title: 'COVID-19 Test',
-      icon: '../../../assets/check-list.png',
-      link: null,
-      text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla facilisis vitae nisl vitae iaculis.',
-    },
-    {
-      title: 'Some Test',
-      icon: '../../../assets/check-list.png',
-      link: null,
-      text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla facilisis vitae nisl vitae iaculis.',
-    },
-    {
-      title: 'Another Test',
-      icon: '../../../assets/check-list.png',
-      link: null,
-      text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla facilisis vitae nisl vitae iaculis.',
-    },
-  ];
+  publicLinks = [];
 
-  constructor() { }
+  constructor(private examinationService: ExaminationService) { }
 
   ngOnInit(): void {
+    this.getAllExaminations();
   }
 
+  getAllExaminations() {
+    if (localStorage.getItem('labId') != null && localStorage.getItem('labId') != undefined) {
+      this.examinationService.getAllLabExaminations(localStorage.getItem('labId') || '')
+      .subscribe((result: any[]) => {
+        console.log(result);
+        this.publicLinks = result;
+      })
+    }
+  }
 }

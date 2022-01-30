@@ -1,31 +1,7 @@
-<div class="results" *ngIf="type == 'results' && isEmployee == false">
+<div class="results">
     <h2>Results</h2>
 
     <div class="results-wrapper">
         <app-results-table [data]="data" [dataType]="dataType" class="small-table"></app-results-table>
-    </div>
-</div>
-
-<div class="results" *ngIf="type == 'results' && isEmployee == true">
-    <h2>Results</h2>
-
-    <div class="results-wrapper">
-        <app-results-table [data]="data2" [dataType]="dataType2" class="normal-table"></app-results-table>
-    </div>
-</div>
-
-<div class="results" *ngIf="type == 'patients'">
-    <h2>Patients</h2>
-
-    <div class="results-wrapper">
-        <app-results-table [data]="data3" [dataType]="dataType3" class="small-table"></app-results-table>
-    </div>
-</div>
-
-<div class="results" *ngIf="type == 'employees'">
-    <h2>Employees</h2>
-
-    <div class="results-wrapper">
-        <app-results-table [data]="data4" [dataType]="dataType4" class="normal-table"></app-results-table>
     </div>
 </div>

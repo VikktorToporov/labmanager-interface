@@ -1,11 +1,11 @@
 export interface PatientViewResults {
-    test: string;
+    examinationType: string;
 
-    status: string;
+    completed: boolean;
 
-    date: Date | string;
+    madeOnDate: Date | string;
 
-    employee: string;
+    employee: {username: string};
 }
 
 export interface EmployeeViewResults {

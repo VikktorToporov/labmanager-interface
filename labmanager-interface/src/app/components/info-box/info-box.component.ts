@@ -7,9 +7,10 @@ import { Component, Input, OnInit } from '@angular/core';
 })
 export class InfoBoxComponent implements OnInit {
   @Input() title = '';
-  @Input() icon = '';
-  @Input() link: string | null = null;
-  @Input() text: string | null = null;
+  @Input() icon = '../../../assets/check-list.png';
+  @Input() link: string = null;
+  @Input() text: string = null;
+  @Input() price: number;
 
   constructor() { }
 

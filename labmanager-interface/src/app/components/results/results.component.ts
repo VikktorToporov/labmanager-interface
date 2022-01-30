@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { TableDataType } from 'src/app/enums/table-data';
-import { EmployeeViewEmployees, EmployeeViewPatients, EmployeeViewResults, PatientViewResults } from 'src/app/models/table-data';
+import { EmployeeService } from 'src/app/services/employee-service';
+import { ExaminationService } from 'src/app/services/examination-service';
+import { PatientService } from 'src/app/services/patient-service';
 
 @Component({
   selector: 'app-results',
@@ -12,72 +14,11 @@ export class ResultsComponent implements OnInit {
   isEmployee!: boolean;
   type = '';
 
-  dataType: TableDataType = TableDataType.PatientViewResults;
-  dataType2: TableDataType = TableDataType.EmployeeViewResults;
-  dataType3: TableDataType = TableDataType.EmployeeViewPatients;
-  dataType4: TableDataType = TableDataType.EmployeeViewEmployees;
+  dataType!: TableDataType;
+  data: any[] = [];
 
-  data: PatientViewResults[] = [
-    {
-      test: 'Some Test',
-      status: 'Done',
-      date: '28.01.2022',
-      employee: 'Kristiyan Stanchev',
-    },
-    {
-      test: 'Some Test',
-      status: 'Done',
-      date: '28.01.2022',
-      employee: 'Kristiyan Stanchev',
-    },
-  ];
 
-  data2: EmployeeViewResults[] = [
-    {
-      patient: 'Viktor Toporov',
-      patientId: '95909',
-      test: 'Some Test',
-      status: 'Done',
-      date: '28.01.2022',
-      employee: 'Kristiyan Stanchev',
-    },
-    {
-      patient: 'Viktor Toporov',
-      patientId: '95909',
-      test: 'Some Test',
-      status: 'Done',
-      date: '28.01.2022',
-      employee: 'Kristiyan Stanchev',
-    },
-  ];
-
-  data3: EmployeeViewPatients[] = [
-    {
-      patient: 'Viktor Toporov',
-      patientId: '95909',
-      email: 'useremail@gmail.com',
-    },
-    {
-      patient: 'Viktor Toporov',
-      patientId: '95909',
-      email: 'useremail@gmail.com',
-    },
-  ];
-
-   data4: EmployeeViewEmployees[] = [
-    {
-      employee: 'Kristiyan Stanchev',
-      employeeId: '95908',
-      email: 'useremail@gmail.com',
-    },
-    {
-      employee: 'Kristiyan Stanchev',
-      employeeId: '95908',
-      email: 'useremail@gmail.com',
-    },
-  ];
-
-  constructor(protected route: ActivatedRoute) {}
+  constructor(protected route: ActivatedRoute, private examinationService: ExaminationService, private patientService: PatientService, private employeeService: EmployeeService) {}
 
   ngOnInit(): void {
     this.route.params
@@ -86,6 +27,8 @@ export class ResultsComponent implements OnInit {
           this.type = params.type;
 
           this.validateUser();
+          this.generateDataType();
+          this.getData();
         }
 			});
   }
@@ -99,6 +42,101 @@ export class ResultsComponent implements OnInit {
       }
     } else {
       this.isEmployee = true;
+    }
+  }
+
+  getData() {
+    switch(this.type) {
+      case 'results':
+        if (this.isEmployee) {
+          this.getAllResults();
+        } else {
+          this.getPatientResults();
+        }
+        break;
+
+      case 'patients':
+        if (this.isEmployee) {
+          this.getAllPatients();
+        }
+        break;
+
+      case 'employees':
+        if (this.isEmployee) {
+          this.getAllEmployees();
+        }
+        break;
+    }
+  }
+
+  getAllResults() {
+    if (localStorage.getItem('userId') != null && localStorage.getItem('userId') != undefined) {
+      this.examinationService.getAllEmployeeExaminations(localStorage.getItem('userId') || '')
+      .subscribe((result: any[]) => {
+        console.log(result);
+        this.data = result;
+      })
+    }
+  }
+
+  getPatientResults() {
+    if (localStorage.getItem('userId') != null && localStorage.getItem('userId') != undefined) {
+      this.examinationService.getAllPatientExaminations(localStorage.getItem('userId') || '')
+      .subscribe((result: any[]) => {
+        console.log(result);
+        this.data = result;
+      })
+    }
+  }
+
+  getAllPatients() {
+    if (localStorage.getItem('labId') != null && localStorage.getItem('labId') != undefined) {
+      this.patientService.getAllPatients(localStorage.getItem('labId') || '')
+      .subscribe((result: any[]) => {
+        console.log(result);
+        this.data = result;
+      })
+    }
+  }
+
+  getAllEmployees() {
+    if (localStorage.getItem('labId') != null && localStorage.getItem('labId') != undefined) {
+      this.employeeService.getAllEmployees(localStorage.getItem('labId') || '')
+      .subscribe((result: any[]) => {
+        console.log(result);
+        this.data = result;
+      })
+    }
+  }
+
+  generateDataType() {
+    switch(this.type) {
+      case 'results':
+        if (this.isEmployee) {
+          this.dataType = TableDataType.EmployeeViewResults;
+        } else {
+          this.dataType = TableDataType.PatientViewResults;
+        }
+
+        break;
+
+      case 'patients':
+        if (this.isEmployee) {
+          this.dataType = TableDataType.EmployeeViewPatients;
+        } else {
+          this.dataType = null;
+        }
+
+        break;
+
+      case 'employees':
+        if (this.isEmployee) {
+          this.dataType = TableDataType.EmployeeViewEmployees;
+        } else {
+          this.dataType = null;
+        }
+
+        break;
     }
   }
 }
