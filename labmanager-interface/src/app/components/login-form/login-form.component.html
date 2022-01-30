@@ -1,0 +1,22 @@
+<div class="login">
+    <h2>Login</h2>
+
+    <div class="login-box">
+        <mat-form-field appearance="fill">
+            <mat-label>Username</mat-label>
+            <input #name matInput>
+        </mat-form-field>
+    </div>
+    
+    <div class="login-box">
+        <mat-form-field appearance="fill">
+            <mat-label>Password</mat-label>
+            <input #pass matInput>
+        </mat-form-field>
+    </div>
+    
+    <div class="login-box">
+        <a (click)="login(name.value, pass.value)" mat-raised-button color="primary">Login</a>
+    </div>
+    
+</div>

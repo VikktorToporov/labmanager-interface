@@ -1,0 +1,27 @@
+<div class="header">
+    <h1 [routerLink]="'/lab'" class="header-title font-size-large">{{labName}}</h1>
+
+    <ul class="header-links font-size-big">
+        <li [routerLink]="'/get/results'">Results</li>
+        <li [routerLink]="'/lab'" class="selected">Laboratory</li>
+    </ul>
+
+    <div class="header-profile">
+        <div class="header-profile_info">
+            <img src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png" alt="Profile Image">
+
+            <div class="header-profile_info_text">
+                <span class="font-size-normal">Viktor Toporov</span>
+                <span class="font-size-small">95909</span>
+            </div>
+        </div>
+
+        <span class="header-profile_arrow">
+            <i mat-button [matMenuTriggerFor]="menu" class="fas fa-sort-down"></i>
+
+            <mat-menu #menu="matMenu" yPosition="above">
+                <a (click)="logout()" mat-menu-item>Log Out</a>
+            </mat-menu>
+        </span>
+    </div>
+</div>

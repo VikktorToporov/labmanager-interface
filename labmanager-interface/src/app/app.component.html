@@ -1,1 +1,2 @@
-<h1>Lab Manager</h1>
+<app-header *ngIf="logged === true" [lab-name]="labName"></app-header>
+<router-outlet></router-outlet>

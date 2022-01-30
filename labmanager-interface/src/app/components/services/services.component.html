@@ -1,0 +1,13 @@
+<div class="services">
+    <h2>Services</h2>
+
+    <div class="services-wrapper">
+        <div class="services-links">
+            <ng-container *ngIf="publicLinks && publicLinks.length > 0">
+                <ng-container *ngFor="let link of publicLinks">
+                    <app-info-box [title]="link.title" [icon]="link.icon" [link]="link.link" [text]="link.text"></app-info-box>
+                </ng-container>
+            </ng-container>
+        </div>
+    </div>
+</div>

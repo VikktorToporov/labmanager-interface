@@ -1,0 +1,7 @@
+<div *ngIf="icon && icon.length > 0 && title && title.length > 0" [routerLink]="link ?  link : []" class="box" [ngClass]="link ? 'box-link' : ''">
+    <img [src]="icon" alt="Link Icon">
+
+    <h3>{{title}}</h3>
+
+    <p *ngIf="text && text.length > 0">{{text}}</p>
+</div>

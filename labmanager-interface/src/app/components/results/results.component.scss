@@ -1,0 +1,21 @@
+.results {
+    margin-top: 100px;
+
+    h2 {
+        font-size: 40px;
+    }
+
+    &-wrapper {
+        margin-top: 20px;
+        display: flex;
+        justify-content: center;
+        
+        .normal-table {
+            width: 1000px;
+        }
+
+        .small-table {
+            width: 600px;
+        }
+    }
+}

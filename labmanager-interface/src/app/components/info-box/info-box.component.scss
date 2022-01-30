@@ -1,0 +1,32 @@
+.box {
+    height: 300px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border: 3px solid #dddddd;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: .3s;
+
+    &-link:hover {
+        transform: scale(1.1);
+    }
+
+    img {
+        width: 120px;
+        height: 120px;
+    }
+
+    h3 {
+        margin: 10px 0 0 0;
+        color: #346CD8;
+        font-size: 20px;
+    }
+
+    p {
+        font-size: 15px;
+        font-weight: 100;
+        color: #939393;
+    }
+}

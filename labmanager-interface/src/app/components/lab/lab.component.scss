@@ -1,0 +1,20 @@
+.lab {
+    margin-top: 100px;
+
+    h2 {
+        font-size: 40px;
+    }
+
+    &-wrapper {
+        margin-top: 80px;
+        display: flex;
+        justify-content: center;
+    }
+
+    &-links {
+        display: grid;
+        grid-template-columns: 250px 250px;
+        grid-template-rows: 1fr 1fr;
+        grid-gap: 50px 50px;
+    }
+}
