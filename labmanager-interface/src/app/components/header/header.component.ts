@@ -1,4 +1,5 @@
 import { Component, Input } from '@angular/core';
+import { UserType } from 'src/app/enums/user-type';
 
 @Component({
   selector: 'app-header',
@@ -7,16 +8,32 @@ import { Component, Input } from '@angular/core';
 })
 export class HeaderComponent {
   @Input('lab-name') labName = '';
-  
+  @Input('user-id') userId = '';
+  @Input('username') username = '';
+  @Input('user-type') userType: UserType;
+
   dropdown = false;
+  enumUserType = UserType;
 
   logout() {
     localStorage.removeItem('userId');
     localStorage.removeItem('userType');
-    localStorage.removeItem('userName');
+    localStorage.removeItem('username');
     localStorage.removeItem('labId');
     localStorage.removeItem('labName');
 
-    window.location.href = '/login';
+    window.location.href = '/Login';
+  }
+
+  addExamination() {
+
+  }
+
+  addEmployee() {
+
+  }
+
+  addPatient() {
+
   }
 }

@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { TableDataType } from 'src/app/enums/table-data';
+import { TableType } from 'src/app/enums/table-type';
+import { UserType } from 'src/app/enums/user-type';
 import { EmployeeService } from 'src/app/services/employee-service';
 import { ExaminationService } from 'src/app/services/examination-service';
 import { PatientService } from 'src/app/services/patient-service';
@@ -12,11 +14,14 @@ import { PatientService } from 'src/app/services/patient-service';
 })
 export class ResultsComponent implements OnInit {
   isEmployee!: boolean;
-  type = '';
+  tableType: string;
 
   dataType!: TableDataType;
   data: any[] = [];
 
+  localStorageUserId: string;
+  localStorageUserType: UserType;
+  localStorageLabId: string;
 
   constructor(protected route: ActivatedRoute, private examinationService: ExaminationService, private patientService: PatientService, private employeeService: EmployeeService) {}
 
@@ -24,8 +29,9 @@ export class ResultsComponent implements OnInit {
     this.route.params
 			.subscribe((params) => {
         if (params && params.type) {
-          this.type = params.type;
+          this.tableType = params.type;
 
+          this.getLocalStorageData();
           this.validateUser();
           this.generateDataType();
           this.getData();
@@ -33,11 +39,22 @@ export class ResultsComponent implements OnInit {
 			});
   }
 
+  getLocalStorageData() {
+    this.localStorageUserId = localStorage.getItem('userId')
+    this.localStorageLabId = localStorage.getItem('labId');
+
+    if (localStorage.getItem('userType') === UserType[UserType.Employee]) {
+      this.localStorageUserType = UserType.Employee;
+    } else if (localStorage.getItem('userType') === UserType[UserType.Patient]) {
+      this.localStorageUserType = UserType.Patient;
+    }
+  }
+
   validateUser() {
-    if (localStorage.getItem('userType') == 'patient') {
+    if (this.localStorageUserType === UserType.Patient) {
       this.isEmployee = false;
 
-      if (this.type == 'employees' || this.type == 'patients') {
+      if (this.tableType == TableType[TableType.Employees] || this.tableType == TableType[TableType.Patients]) {
         window.location.href = '/lab';
       }
     } else {
@@ -45,73 +62,9 @@ export class ResultsComponent implements OnInit {
     }
   }
 
-  getData() {
-    switch(this.type) {
-      case 'results':
-        if (this.isEmployee) {
-          this.getAllResults();
-        } else {
-          this.getPatientResults();
-        }
-        break;
-
-      case 'patients':
-        if (this.isEmployee) {
-          this.getAllPatients();
-        }
-        break;
-
-      case 'employees':
-        if (this.isEmployee) {
-          this.getAllEmployees();
-        }
-        break;
-    }
-  }
-
-  getAllResults() {
-    if (localStorage.getItem('userId') != null && localStorage.getItem('userId') != undefined) {
-      this.examinationService.getAllEmployeeExaminations(localStorage.getItem('userId') || '')
-      .subscribe((result: any[]) => {
-        console.log(result);
-        this.data = result;
-      })
-    }
-  }
-
-  getPatientResults() {
-    if (localStorage.getItem('userId') != null && localStorage.getItem('userId') != undefined) {
-      this.examinationService.getAllPatientExaminations(localStorage.getItem('userId') || '')
-      .subscribe((result: any[]) => {
-        console.log(result);
-        this.data = result;
-      })
-    }
-  }
-
-  getAllPatients() {
-    if (localStorage.getItem('labId') != null && localStorage.getItem('labId') != undefined) {
-      this.patientService.getAllPatients(localStorage.getItem('labId') || '')
-      .subscribe((result: any[]) => {
-        console.log(result);
-        this.data = result;
-      })
-    }
-  }
-
-  getAllEmployees() {
-    if (localStorage.getItem('labId') != null && localStorage.getItem('labId') != undefined) {
-      this.employeeService.getAllEmployees(localStorage.getItem('labId') || '')
-      .subscribe((result: any[]) => {
-        console.log(result);
-        this.data = result;
-      })
-    }
-  }
-
   generateDataType() {
-    switch(this.type) {
-      case 'results':
+    switch(this.tableType) {
+      case TableType[TableType.Results]:
         if (this.isEmployee) {
           this.dataType = TableDataType.EmployeeViewResults;
         } else {
@@ -120,7 +73,7 @@ export class ResultsComponent implements OnInit {
 
         break;
 
-      case 'patients':
+      case TableType[TableType.Patients]:
         if (this.isEmployee) {
           this.dataType = TableDataType.EmployeeViewPatients;
         } else {
@@ -129,7 +82,7 @@ export class ResultsComponent implements OnInit {
 
         break;
 
-      case 'employees':
+      case TableType[TableType.Employees]:
         if (this.isEmployee) {
           this.dataType = TableDataType.EmployeeViewEmployees;
         } else {
@@ -137,6 +90,66 @@ export class ResultsComponent implements OnInit {
         }
 
         break;
+    }
+  }
+
+  getData() {
+    switch(this.tableType) {
+      case TableType[TableType.Results]:
+        if (this.isEmployee) {
+          this.getAllResults();
+        } else {
+          this.getPatientResults();
+        }
+        break;
+
+      case TableType[TableType.Patients]:
+        if (this.isEmployee) {
+          this.getAllPatients();
+        }
+        break;
+
+      case TableType[TableType.Employees]:
+        if (this.isEmployee) {
+          this.getAllEmployees();
+        }
+        break;
+    }
+  }
+
+  getAllResults() {
+    if (this.localStorageLabId != null && this.localStorageLabId != undefined) {
+      this.examinationService.getAllResults(this.localStorageLabId || '')
+      .subscribe((result: any[]) => {
+        this.data = result;
+      })
+    }
+  }
+
+  getPatientResults() {
+    if (this.localStorageUserId != null && this.localStorageUserId != undefined) {
+      this.examinationService.getAllPatientExaminations(this.localStorageUserId || '')
+      .subscribe((result: any[]) => {
+        this.data = result;
+      })
+    }
+  }
+
+  getAllPatients() {
+    if (this.localStorageLabId != null && this.localStorageLabId != undefined) {
+      this.patientService.getAllPatients(this.localStorageLabId || '')
+      .subscribe((result: any[]) => {
+        this.data = result;
+      })
+    }
+  }
+
+  getAllEmployees() {
+    if (this.localStorageLabId != null && this.localStorageLabId != undefined) {
+      this.employeeService.getAllEmployees(this.localStorageLabId || '')
+      .subscribe((result: any[]) => {
+        this.data = result;
+      })
     }
   }
 }

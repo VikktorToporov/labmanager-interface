@@ -1,25 +1,25 @@
-import { Component, OnInit } from '@angular/core';
-import { UserService } from 'src/app/services/user-service';
+import { Component } from '@angular/core';
+import { UserType } from 'src/app/enums/user-type';
 
 @Component({
   selector: 'app-lab',
   templateUrl: './lab.component.html',
   styleUrls: ['./lab.component.scss']
 })
-export class LabComponent implements OnInit {
+export class LabComponent {
   isEmployee = false;
 
   publicLinks = [
     {
       title: 'Results',
       icon: '../../../assets/check-list.png',
-      link: '/get/results',
+      link: '/Get/Results',
       text: null,
     },
     {
       title: 'Services',
       icon: '../../../assets/check-list.png',
-      link: '/services',
+      link: '/Services',
       text: null,
     },
   ];
@@ -28,27 +28,22 @@ export class LabComponent implements OnInit {
     {
       title: 'Employees',
       icon: '../../../assets/check-list.png',
-      link: '/get/employees',
+      link: '/Get/Employees',
       text: null,
     },
     {
       title: 'Patients',
       icon: '../../../assets/check-list.png',
-      link: '/get/patients',
+      link: '/Get/Patients',
       text: null,
     }
   ];
 
-  constructor(private userService: UserService) {
+  constructor() {
     const userType = localStorage.getItem('userType');
 
-    if (userType == 'employee') {
+    if (userType == UserType[UserType.Employee]) {
       this.isEmployee = true;
     }
   };
-
-  ngOnInit(): void {
-
-  }
-
 }

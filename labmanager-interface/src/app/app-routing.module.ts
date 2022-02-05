@@ -7,10 +7,11 @@ import { ServicesComponent } from './components/services/services.component';
 import { AuthGuard } from './guards/auth.guard';
 
 const routes: Routes = [
-  { path: 'login', component: LoginFormComponent },
-  { path: 'lab', component: LabComponent, canActivate: [AuthGuard] },
-  { path: 'services', component: ServicesComponent, canActivate: [AuthGuard] },
-  { path: 'get/:type', component: ResultsComponent, canActivate: [AuthGuard] },
+  { path: '', component: LoginFormComponent },
+  { path: 'Login', component: LoginFormComponent },
+  { path: 'Lab', component: LabComponent, canActivate: [AuthGuard] },
+  { path: 'Services', component: ServicesComponent, canActivate: [AuthGuard] },
+  { path: 'Get/:type', component: ResultsComponent, canActivate: [AuthGuard] },
 ];
 
 @NgModule({

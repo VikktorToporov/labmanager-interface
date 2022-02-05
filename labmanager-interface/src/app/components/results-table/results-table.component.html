@@ -2,22 +2,22 @@
     <table mat-table [dataSource]="data" class="table mat-elevation-z8">
         <ng-container matColumnDef="Patient ID">
             <th mat-header-cell *matHeaderCellDef> Patient ID </th>
-            <td mat-cell *matCellDef="let element" style="width: 100px;"> {{element?.patient?.id || element.id}} </td>
+            <td mat-cell *matCellDef="let element" style="width: 100px;"> {{element?.patientId}} </td>
         </ng-container>
 
         <ng-container matColumnDef="Employee ID">
             <th mat-header-cell *matHeaderCellDef> Employee ID </th>
-            <td mat-cell *matCellDef="let element" style="width: 100px;"> {{element?.employee?.id || element.id}} </td>
+            <td mat-cell *matCellDef="let element" style="width: 100px;"> {{element?.employeeId}} </td>
             </ng-container>
 
         <ng-container matColumnDef="Patient">
             <th mat-header-cell *matHeaderCellDef> Patient </th>
-            <td mat-cell *matCellDef="let element" > {{element?.patient?.username || element.username}} </td>
+            <td mat-cell *matCellDef="let element" > {{element?.patientUsername}} </td>
         </ng-container>
 
         <ng-container matColumnDef="Employee">
             <th mat-header-cell *matHeaderCellDef> Employee </th>
-            <td mat-cell *matCellDef="let element" > {{element?.employee?.username || element.username}} </td>
+            <td mat-cell *matCellDef="let element" > {{element?.employeeUsername}} </td>
         </ng-container>
 
         <ng-container matColumnDef="Email">
@@ -27,7 +27,7 @@
 
         <ng-container matColumnDef="Test">
             <th mat-header-cell *matHeaderCellDef> Test </th>
-            <td mat-cell *matCellDef="let element" > {{element.examinationType}} </td>
+            <td mat-cell *matCellDef="let element" > {{element.examinationName}} </td>
         </ng-container>
 
         <ng-container matColumnDef="Status">
@@ -40,11 +40,6 @@
             <td mat-cell *matCellDef="let element" style="width: 50px;"> {{element.madeOnDate}} </td>
         </ng-container>
 
-        <ng-container matColumnDef="Position">
-            <th mat-header-cell *matHeaderCellDef> Position </th>
-            <td mat-cell *matCellDef="let element"> {{element.position}} </td>
-        </ng-container>
-        
         <tr mat-header-row *matHeaderRowDef="columns"></tr>
         <tr mat-row *matRowDef="let row; columns: columns;"></tr>
     </table>

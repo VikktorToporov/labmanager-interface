@@ -18,6 +18,10 @@ export class ExaminationService {
         return this.http.get(`${this.baseUrl}/employeeExaminations/${id}`);
     }
 
+    getAllResults(id: string) {
+        return this.http.get(`${this.baseUrl}/laboratoryExaminations/${id}`);
+    }
+
     getAllLabExaminations(id: string) {
         return this.http.get(`http://localhost:8080/examination_type/laboratoryExaminationTypes/${id}`);
     }
