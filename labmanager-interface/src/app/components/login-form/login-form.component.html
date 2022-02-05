@@ -3,8 +3,8 @@
 
     <div class="login-box">
         <mat-form-field appearance="fill">
-            <mat-label>Username</mat-label>
-            <input #name matInput>
+            <mat-label>Email</mat-label>
+            <input #email matInput>
         </mat-form-field>
     </div>
     
@@ -16,7 +16,7 @@
     </div>
     
     <div class="login-box">
-        <a (click)="login(name.value, pass.value)" mat-raised-button color="primary">Login</a>
+        <a (click)="login(email.value, pass.value)" mat-raised-button color="primary">Login</a>
     </div>
     
 </div>

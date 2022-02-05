@@ -20,9 +20,9 @@
             <i mat-button [matMenuTriggerFor]="menu" class="fas fa-sort-down"></i>
 
             <mat-menu #menu="matMenu" yPosition="above">
-                <a *ngIf="userType == enumUserType.Employee" (click)="addExamination()" mat-menu-item>Add Examination</a>
-                <a *ngIf="userType == enumUserType.Employee" (click)="addEmployee()" mat-menu-item>Add Employee</a>
-                <a *ngIf="userType == enumUserType.Employee" (click)="addPatient()" mat-menu-item>Add Patient</a>
+                <a *ngIf="userType == enumUserType.Employee" routerLink="/Add/Examination" mat-menu-item>Add Examination</a>
+                <a *ngIf="userType == enumUserType.Employee" routerLink="/Add/Employee" mat-menu-item>Add Employee</a>
+                <a *ngIf="userType == enumUserType.Employee" routerLink="/Add/Patient" mat-menu-item>Add Patient</a>
                 <a (click)="logout()" mat-menu-item>Log Out</a>
             </mat-menu>
         </span>

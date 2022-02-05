@@ -1,0 +1,77 @@
+<div class="form">
+    <h2>Add a new patient</h2>
+    
+    <form [formGroup]="patientForm">
+      <mat-stepper [linear]="isLinear" #stepper>
+          <mat-step [stepControl]="patientForm">
+            <ng-template matStepLabel>Username</ng-template>
+            <h3>Set your username</h3>
+  
+            <mat-form-field appearance="fill">
+              <mat-label>Username</mat-label>
+  
+              <input matInput formControlName="username" placeholder="">
+            </mat-form-field>
+  
+            <div class="btn-wrapper">
+              <button mat-raised-button matStepperPrevious>Back</button>
+              <button mat-raised-button color="primary" matStepperNext>Next</button>
+            </div>
+          </mat-step>
+  
+          <mat-step [stepControl]="patientForm">
+            <ng-template matStepLabel>Password</ng-template>
+            <h3>Set your password</h3>
+  
+            <mat-form-field appearance="fill">
+              <mat-label>Password</mat-label>
+  
+              <input matInput type="password" formControlName="password" placeholder="">
+            </mat-form-field>
+  
+            <div class="btn-wrapper">
+              <button mat-raised-button matStepperPrevious>Back</button>
+              <button mat-raised-button color="primary" matStepperNext>Next</button>
+            </div>
+          </mat-step>
+
+          <mat-step [stepControl]="patientForm">
+            <ng-template matStepLabel>Email</ng-template>
+            <h3>Set your email</h3>
+  
+            <mat-form-field appearance="fill">
+              <mat-label>Email</mat-label>
+  
+              <input matInput type="email" formControlName="email" placeholder="">
+            </mat-form-field>
+  
+            <div class="btn-wrapper">
+              <button mat-raised-button matStepperPrevious>Back</button>
+              <button mat-raised-button color="primary" matStepperNext>Next</button>
+            </div>
+          </mat-step>
+  
+          <mat-step>
+            <ng-template matStepLabel>Done</ng-template>
+            <h3>Patient Details</h3>
+  
+            <div class="done-info">
+              <div>
+                <span>Username: <strong *ngIf="patientForm.value.username; else notSelected">{{patientForm.value.username}}</strong></span>
+                <span>Password Length: <strong *ngIf="patientForm.value.password; else notSelected">{{patientForm.value.password.length}}</strong></span>
+                <span>Email: <strong *ngIf="patientForm.value.email; else notSelected">{{patientForm.value.email}}</strong></span>
+  
+                <ng-template #notSelected>
+                  <strong style="color: #ff8989">Not Selected</strong>
+                </ng-template>
+              </div>
+            </div>
+  
+            <div class="btn-wrapper">
+              <button mat-raised-button matStepperPrevious>Back</button>
+              <button mat-raised-button color="primary" (click)="save()">Add</button>
+            </div>
+          </mat-step>
+        </mat-stepper>
+      </form>
+  </div>

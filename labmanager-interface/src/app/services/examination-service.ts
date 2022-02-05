@@ -25,4 +25,23 @@ export class ExaminationService {
     getAllLabExaminations(id: string) {
         return this.http.get(`http://localhost:8080/examination_type/laboratoryExaminationTypes/${id}`);
     }
+
+    // TODO: fix calls
+    addExamination(values: {
+        completed: boolean,
+        information: string,
+        employee_id: string,
+        patient_id: string,
+        madeOnDate: string,
+        examinationType_id: string,
+        laboratory_id: string,
+    }) {
+
+
+        return this.http.post(`${this.baseUrl}/add`, values);
+    }
+
+    addExaminationToLab(labId: string, examId: string) {
+        return this.http.put(`http://localhost:8080/laboratory/${labId}/addExamination/${examId}`, null);
+      }
 }

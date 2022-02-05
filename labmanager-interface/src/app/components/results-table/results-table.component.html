@@ -37,7 +37,7 @@
 
         <ng-container matColumnDef="Date">
             <th mat-header-cell *matHeaderCellDef> Date </th>
-            <td mat-cell *matCellDef="let element" style="width: 50px;"> {{element.madeOnDate}} </td>
+            <td mat-cell *matCellDef="let element" style="width: 50px;"> {{element.madeOnDate | dateToReadable}} </td>
         </ng-container>
 
         <tr mat-header-row *matHeaderRowDef="columns"></tr>

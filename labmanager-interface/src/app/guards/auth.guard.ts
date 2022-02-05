@@ -1,22 +1,29 @@
 import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot } from '@angular/router';
-import { of } from 'rxjs';
+import { Observable, of } from 'rxjs';
+import { UserType } from '../enums/user-type';
 
 
 @Injectable()
 export class AuthGuard implements CanActivate {
 	constructor(private router: Router) { }
 
-	canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
-
+	canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> {
 		const isAuthenticated = this.isLogged();
 
 		if (isAuthenticated) {
+			if (route?.url[0]?.path == 'Add') {
+				const isEmployee = this.isEmployee();
+
+				if (isEmployee) {
+					return of(isEmployee);
+				} else {
+					return this.redirectToLogin();
+				}
+			}
 			return of(isAuthenticated);
 		} else {
-			// Not logged in, so redirect to login page.
-			window.location.href = '/login';
-			return of(false);
+			return this.redirectToLogin();
 		}
 	}
 	
@@ -26,5 +33,19 @@ export class AuthGuard implements CanActivate {
 		}
 
 		return false;
+	}
+
+	isEmployee(): boolean {
+		if (localStorage.getItem('userType') && localStorage.getItem('userType') === UserType[UserType.Employee]) {
+			return true;
+		}
+
+		return false;
+	}
+
+	redirectToLogin(): Observable<boolean> {
+		// Not logged in, so redirect to login page.
+		window.location.href = '/Login';
+		return of(false);
 	}
 }

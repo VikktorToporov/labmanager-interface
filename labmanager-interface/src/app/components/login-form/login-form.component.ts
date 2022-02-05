@@ -16,7 +16,7 @@ export class LoginFormComponent implements OnInit {
     }
   }
 
-  login(name: string, pass: string) {
+  login(email: string, pass: string) {
     // call api and get user id, lab id, user type
     const labId = '1';
     const userId = '2';

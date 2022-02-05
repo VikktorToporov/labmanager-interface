@@ -13,4 +13,16 @@ export class PatientService {
     getAllPatients(id: string) {
         return this.http.get(`${this.baseUrl}/laboratoryPatients/${id}`);
     }
+
+    addPatient(values: {
+      username: boolean,
+      password: string,
+      email: string,
+  }) {
+      return this.http.post(`${this.baseUrl}/add`, values);
+  }
+
+  addPatientToLab(labId: string, patientId: string) {
+    return this.http.put(`http://localhost:8080/laboratory/${labId}/addPatient/${patientId}`, null);
+  }
 }
