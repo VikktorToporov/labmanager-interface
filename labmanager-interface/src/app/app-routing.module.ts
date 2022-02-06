@@ -3,6 +3,8 @@ import { RouterModule, Routes } from '@angular/router';
 import { AddNewEmployeeComponent } from './components/add-new-employee/add-new-employee.component';
 import { AddNewExaminationComponent } from './components/add-new-examination/add-new-examination.component';
 import { AddNewPatientComponent } from './components/add-new-patient/add-new-patient.component';
+import { EditEmployeeComponent } from './components/edit-employee/edit-employee.component';
+import { EditPatientComponent } from './components/edit-patient/edit-patient.component';
 import { LabComponent } from './components/lab/lab.component';
 import { LoginFormComponent } from './components/login-form/login-form.component';
 import { ResultsComponent } from './components/results/results.component';
@@ -18,6 +20,9 @@ const routes: Routes = [
   { path: 'Add/Examination', component: AddNewExaminationComponent, canActivate: [AuthGuard] },
   { path: 'Add/Employee', component: AddNewEmployeeComponent, canActivate: [AuthGuard] },
   { path: 'Add/Patient', component: AddNewPatientComponent, canActivate: [AuthGuard] },
+  { path: 'Edit/Examination/:id', component: EditEmployeeComponent, canActivate: [AuthGuard] },
+  { path: 'Edit/Employee/:id', component: EditEmployeeComponent, canActivate: [AuthGuard] },
+  { path: 'Edit/Patient/:id', component: EditPatientComponent, canActivate: [AuthGuard] },
 ];
 
 @NgModule({

@@ -32,6 +32,8 @@ import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/materia
 import { MomentDateAdapter } from '@angular/material-moment-adapter';
 import { AddNewEmployeeComponent } from './components/add-new-employee/add-new-employee.component';
 import { AddNewPatientComponent } from './components/add-new-patient/add-new-patient.component';
+import { EditEmployeeComponent } from './components/edit-employee/edit-employee.component';
+import { EditPatientComponent } from './components/edit-patient/edit-patient.component';
 
 export const DateFormats = {
   parse: {
@@ -60,6 +62,8 @@ export const DateFormats = {
     DateToReadablePipe,
     AddNewEmployeeComponent,
     AddNewPatientComponent,
+    EditEmployeeComponent,
+    EditPatientComponent,
   ],
   imports: [
     BrowserModule,

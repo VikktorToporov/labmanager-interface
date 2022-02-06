@@ -47,6 +47,10 @@
 }
 
 ::ng-deep {
+    .mat-stepper-horizontal {
+        background-color: transparent;
+    }
+    
     .mat-horizontal-stepper-header-container {
         margin-bottom: 30px !important;
     }

@@ -1,4 +1,11 @@
 .table {
     width: 100%;
     text-align: left;
+
+    .actions {
+        a {
+            margin: 0 5px;
+            cursor: pointer;
+        }
+    }
 }

@@ -25,4 +25,17 @@ export class EmployeeService {
   addEmployeeToLab(labId: string, employeeId: string) {
     return this.http.put(`http://localhost:8080/laboratory/${labId}/addEmployee/${employeeId}`, null);
   }
+
+  updateEmployee(values: {
+    id: string,
+    password: string,
+    email: string,
+    laboratory_id: string
+}) {
+    return this.http.put(`${this.baseUrl}/update`, values);
+  }
+
+  getEmployeeDetails(id: string) {
+    return this.http.get(`${this.baseUrl}/${id}`);
+  }
 }

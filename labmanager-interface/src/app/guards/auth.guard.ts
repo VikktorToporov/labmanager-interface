@@ -12,7 +12,7 @@ export class AuthGuard implements CanActivate {
 		const isAuthenticated = this.isLogged();
 
 		if (isAuthenticated) {
-			if (route?.url[0]?.path == 'Add') {
+			if (route?.url[0]?.path == 'Add' || route?.url[0]?.path == 'Edit') {
 				const isEmployee = this.isEmployee();
 
 				if (isEmployee) {

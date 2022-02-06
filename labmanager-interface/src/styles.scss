@@ -33,14 +33,15 @@ $labmanager-interface-theme: mat.define-light-theme((
 // that you are using.
 @include mat.all-component-themes($labmanager-interface-theme);
 
+html,
 body {
-    margin: 0;
-    padding: 0;
-    text-align: center;
-    font-family: 'Montserrat', sans-serif;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  text-align: center;
+  font-family: 'Montserrat', sans-serif;
+  background-color: #f7faff;
 }
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
 .font-size-small {
   font-size: 12px;
