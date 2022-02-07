@@ -5,7 +5,9 @@
         <div class="services-links">
             <ng-container *ngIf="publicLinks && publicLinks.length > 0">
                 <ng-container *ngFor="let link of publicLinks">
-                    <app-info-box [title]="link.name" [text]="link.description" [price]="link.price"></app-info-box>
+                    <a [routerLink]="isEmployee ? ['/Edit/Service/' + link?.id] : []">
+                        <app-info-box [title]="link.name" [text]="link.description" [price]="link.price"></app-info-box>
+                    </a>
                 </ng-container>
             </ng-container>
         </div>

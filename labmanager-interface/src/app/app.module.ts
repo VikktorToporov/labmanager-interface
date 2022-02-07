@@ -34,6 +34,9 @@ import { AddNewEmployeeComponent } from './components/add-new-employee/add-new-e
 import { AddNewPatientComponent } from './components/add-new-patient/add-new-patient.component';
 import { EditEmployeeComponent } from './components/edit-employee/edit-employee.component';
 import { EditPatientComponent } from './components/edit-patient/edit-patient.component';
+import { EditServiceComponent } from './components/edit-service/edit-service.component';
+import { AddNewServiceComponent } from './components/add-new-service/add-new-service.component';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 export const DateFormats = {
   parse: {
@@ -64,6 +67,8 @@ export const DateFormats = {
     AddNewPatientComponent,
     EditEmployeeComponent,
     EditPatientComponent,
+    EditServiceComponent,
+    AddNewServiceComponent,
   ],
   imports: [
     BrowserModule,
@@ -81,6 +86,7 @@ export const DateFormats = {
     MatSelectModule,
     MatDatepickerModule,
     MatNativeDateModule,
+    MatTooltipModule,
   ],
   providers: [
     AuthGuard,

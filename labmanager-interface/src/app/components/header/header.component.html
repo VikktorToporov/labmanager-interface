@@ -2,8 +2,9 @@
     <h1 [routerLink]="'/Lab'" class="header-title font-size-large">{{labName}}</h1>
 
     <ul class="header-links font-size-big">
-        <li [routerLink]="'/Get/Results'">Results</li>
-        <li [routerLink]="'/Lab'" class="selected">Laboratory</li>
+        <li [routerLink]="userType === enumUserType.Employee ? ['/Get/Results/' + userId] : []">My Results</li>
+        <li [routerLink]="'/Services'">Services</li>
+        <li [routerLink]="'/Lab'">Laboratory</li>
     </ul>
 
     <div class="header-profile">
@@ -23,6 +24,7 @@
                 <a *ngIf="userType == enumUserType.Employee" routerLink="/Add/Examination" mat-menu-item>Add Examination</a>
                 <a *ngIf="userType == enumUserType.Employee" routerLink="/Add/Employee" mat-menu-item>Add Employee</a>
                 <a *ngIf="userType == enumUserType.Employee" routerLink="/Add/Patient" mat-menu-item>Add Patient</a>
+                <a *ngIf="userType == enumUserType.Employee" routerLink="/Add/Service" mat-menu-item>Add Service</a>
                 <a (click)="logout()" mat-menu-item>Log Out</a>
             </mat-menu>
         </span>

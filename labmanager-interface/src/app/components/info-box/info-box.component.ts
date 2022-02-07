@@ -11,6 +11,7 @@ export class InfoBoxComponent implements OnInit {
   @Input() link: string = null;
   @Input() text: string = null;
   @Input() price: number;
+  @Input() isEmployee = false;
 
   constructor() { }
 

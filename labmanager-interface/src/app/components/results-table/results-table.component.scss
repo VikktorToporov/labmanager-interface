@@ -4,8 +4,15 @@
 
     .actions {
         a {
-            margin: 0 5px;
+            margin-right: 10px;
             cursor: pointer;
+            font-size: 15px;
+            color: #666666;
+            transition: .3s;
+
+            &:hover {
+                color: #346cd8;
+            }
         }
     }
 }

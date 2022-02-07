@@ -1,23 +1,24 @@
 <ng-container *ngIf="dataType !== null && dataType !== undefined && data && data.length > 0">
     <table mat-table [dataSource]="data" class="table mat-elevation-z8">
         <ng-container matColumnDef="Actions">
-            <th mat-header-cell *matHeaderCellDef> Actions </th>
-            <td mat-cell *matCellDef="let element" style="width: 100px;">
+            <th mat-header-cell *matHeaderCellDef> {{dataType === enumTableDataType.EmployeeViewResults || dataType === enumTableDataType.EmployeeViewPatients || dataType === enumTableDataType.EmployeeViewEmployees ? 'Actions' : ''}} </th>
+            <td mat-cell *matCellDef="let element" style="width: 70px;">
                 <div class="actions" *ngIf="dataType === enumTableDataType.EmployeeViewResults || dataType === enumTableDataType.EmployeeViewPatients || dataType === enumTableDataType.EmployeeViewEmployees">
-                    <a (click)="edit(element)"><i class="fas fa-pen"></i></a>
-                    <a (click)="remove(element)"><i class="fas fa-trash"></i></a>
+                    <a *ngIf="dataType === enumTableDataType.EmployeeViewResults || dataType === enumTableDataType.EmployeeViewPatients" [routerLink]="['/Get/Results/' + element.patientId]" matTooltip="View patient's results"><i class="fas fa-clipboard-list"></i></a>
+                    <a (click)="edit(element)" matTooltip="Edit patient"><i class="fas fa-pen"></i></a>
+                    <a (click)="remove(element)" matTooltip="Remove patient"><i class="fas fa-trash"></i></a>
                 </div>
             </td>
         </ng-container>
 
         <ng-container matColumnDef="Patient ID">
             <th mat-header-cell *matHeaderCellDef> Patient ID </th>
-            <td mat-cell *matCellDef="let element" style="width: 100px;"> {{element?.patientId}} </td>
+            <td mat-cell *matCellDef="let element" style="width: 70px;"> {{element?.patientId}} </td>
         </ng-container>
 
         <ng-container matColumnDef="Employee ID">
             <th mat-header-cell *matHeaderCellDef> Employee ID </th>
-            <td mat-cell *matCellDef="let element" style="width: 100px;"> {{element?.employeeId}} </td>
+            <td mat-cell *matCellDef="let element"> {{element?.employeeId}} </td>
             </ng-container>
 
         <ng-container matColumnDef="Patient">
@@ -37,7 +38,7 @@
 
         <ng-container matColumnDef="Test">
             <th mat-header-cell *matHeaderCellDef> Test </th>
-            <td mat-cell *matCellDef="let element" > {{element.examinationName}} </td>
+            <td mat-cell *matCellDef="let element" > {{element.examinationType}} </td>
         </ng-container>
 
         <ng-container matColumnDef="Status">
@@ -47,7 +48,7 @@
 
         <ng-container matColumnDef="Date">
             <th mat-header-cell *matHeaderCellDef> Date </th>
-            <td mat-cell *matCellDef="let element" style="width: 50px;"> {{element.madeOnDate | dateToReadable}} </td>
+            <td mat-cell *matCellDef="let element"> {{element.madeOnDate | dateToReadable}} </td>
         </ng-container>
 
         <tr mat-header-row *matHeaderRowDef="columns"></tr>

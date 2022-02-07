@@ -15,6 +15,7 @@ import { PatientService } from 'src/app/services/patient-service';
 export class ResultsComponent implements OnInit {
   isEmployee!: boolean;
   tableType: string;
+  userId: string = null;
 
   dataType!: TableDataType;
   data: any[] = [];
@@ -28,15 +29,26 @@ export class ResultsComponent implements OnInit {
   ngOnInit(): void {
     this.route.params
 			.subscribe((params) => {
-        if (params && params.type) {
-          this.tableType = params.type;
+        if (params) {
+          if (params.type) {
+            this.tableType = params.type;
 
-          this.getLocalStorageData();
-          this.validateUser();
-          this.generateDataType();
-          this.getData();
+            this.init();
+          } else if (params.id) {
+            this.tableType = 'Results';
+            this.userId = params.id;
+
+            this.init();
+          }
         }
 			});
+  }
+
+  init() {
+    this.getLocalStorageData();
+    this.validateUser();
+    this.generateDataType();
+    this.getData();
   }
 
   getLocalStorageData() {
@@ -54,7 +66,7 @@ export class ResultsComponent implements OnInit {
     if (this.localStorageUserType === UserType.Patient) {
       this.isEmployee = false;
 
-      if (this.tableType == TableType[TableType.Employees] || this.tableType == TableType[TableType.Patients]) {
+      if (this.tableType == TableType[TableType.Employees] || this.tableType == TableType[TableType.Patients] || this.userId == null) {
         window.location.href = '/lab';
       }
     } else {
@@ -97,9 +109,17 @@ export class ResultsComponent implements OnInit {
     switch(this.tableType) {
       case TableType[TableType.Results]:
         if (this.isEmployee) {
-          this.getAllResults();
+          if (this.userId) {
+            if (this.userId === this.localStorageUserId) {
+              this.getPatientResultsByEmployee(this.userId);
+            } else {
+              this.getPatientResults(this.userId);
+            }
+          } else {
+            this.getAllResults();
+          }
         } else {
-          this.getPatientResults();
+          this.getPatientResults(this.localStorageUserId);
         }
         break;
 
@@ -126,9 +146,18 @@ export class ResultsComponent implements OnInit {
     }
   }
 
-  getPatientResults() {
-    if (this.localStorageUserId != null && this.localStorageUserId != undefined) {
-      this.examinationService.getAllPatientExaminations(this.localStorageUserId || '')
+  getPatientResults(patientId: string) {
+    if (patientId != null && patientId != undefined) {
+      this.examinationService.getAllPatientExaminations(patientId || '')
+      .subscribe((result: any[]) => {
+        this.data = result;
+      })
+    }
+  }
+
+  getPatientResultsByEmployee(employeeId: string) {
+    if (employeeId != null && employeeId != undefined) {
+      this.examinationService.getAllPatientExaminationsByEmployee(employeeId || '')
       .subscribe((result: any[]) => {
         this.data = result;
       })

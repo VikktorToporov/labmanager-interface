@@ -1,0 +1,76 @@
+<div class="form">
+    <h2>Edit examination type</h2>
+    
+    <form *ngIf="examinationForm" [formGroup]="examinationForm">
+      <mat-stepper [linear]="isLinear" #stepper>  
+          <mat-step [stepControl]="examinationForm">
+            <ng-template matStepLabel>Name</ng-template>
+            <h3>Set examination type name</h3>
+  
+            <mat-form-field appearance="fill">
+              <mat-label>Name</mat-label>
+  
+              <input matInput formControlName="name" placeholder="">
+            </mat-form-field>
+  
+            <div class="btn-wrapper">
+              <button mat-raised-button color="primary" matStepperNext>Next</button>
+            </div>
+          </mat-step>
+
+          <mat-step [stepControl]="examinationForm">
+            <ng-template matStepLabel>Description</ng-template>
+            <h3>Set examination type description</h3>
+  
+            <mat-form-field appearance="fill">
+              <mat-label>Description</mat-label>
+  
+              <input matInput formControlName="description" placeholder="">
+            </mat-form-field>
+  
+            <div class="btn-wrapper">
+              <button mat-raised-button matStepperPrevious>Back</button>
+              <button mat-raised-button color="primary" matStepperNext>Next</button>
+            </div>
+          </mat-step>
+  
+          <mat-step [stepControl]="examinationForm">
+            <ng-template matStepLabel>Price</ng-template>
+            <h3>Set examination type price</h3>
+  
+            <mat-form-field appearance="fill">
+              <mat-label>Price</mat-label>
+  
+              <input matInput type="number" min="0" formControlName="price" placeholder="">
+            </mat-form-field>
+  
+            <div class="btn-wrapper">
+              <button mat-raised-button matStepperPrevious>Back</button>
+              <button mat-raised-button color="primary" matStepperNext>Next</button>
+            </div>
+          </mat-step>
+
+          <mat-step>
+            <ng-template matStepLabel>Done</ng-template>
+            <h3>Examination Type Details</h3>
+  
+            <div class="done-info">
+              <div>
+                <span>Name: <strong *ngIf="examinationForm.value.name; else notSelected">{{examinationForm.value.name}}</strong></span>
+                <span>Description: <strong *ngIf="examinationForm.value.description; else notSelected">{{examinationForm.value.description}}</strong></span>
+                <span>Price: <strong *ngIf="examinationForm.value.price; else notSelected">{{examinationForm.value.price}}</strong></span>
+
+                <ng-template #notSelected>
+                  <strong style="color: #ff8989">Not Selected</strong>
+                </ng-template>
+              </div>
+            </div>
+  
+            <div class="btn-wrapper">
+              <button mat-raised-button matStepperPrevious>Back</button>
+              <button mat-raised-button color="primary" (click)="save()">Add</button>
+            </div>
+          </mat-step>
+        </mat-stepper>
+      </form>
+  </div>

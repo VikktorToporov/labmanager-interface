@@ -18,24 +18,24 @@ export class EmployeeService {
       username: boolean,
       password: string,
       email: string,
-  }) {
+    }) {
       return this.http.post(`${this.baseUrl}/add`, values);
-  }
+    }
 
-  addEmployeeToLab(labId: string, employeeId: string) {
-    return this.http.put(`http://localhost:8080/laboratory/${labId}/addEmployee/${employeeId}`, null);
-  }
+    addEmployeeToLab(labId: string, employeeId: string) {
+      return this.http.put(`http://localhost:8080/laboratory/${labId}/addEmployee/${employeeId}`, null);
+    }
 
-  updateEmployee(values: {
-    id: string,
-    password: string,
-    email: string,
-    laboratory_id: string
-}) {
-    return this.http.put(`${this.baseUrl}/update`, values);
-  }
+    updateEmployee(values: {
+      id: string,
+      password: string,
+      email: string,
+      laboratory_id: string
+    }) {
+      return this.http.put(`${this.baseUrl}/update`, values);
+    }
 
-  getEmployeeDetails(id: string) {
-    return this.http.get(`${this.baseUrl}/${id}`);
-  }
+    getEmployeeDetails(id: string) {
+      return this.http.get(`${this.baseUrl}/${id}`);
+    }
 }

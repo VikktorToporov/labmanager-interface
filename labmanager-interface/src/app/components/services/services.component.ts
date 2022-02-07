@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { UserType } from 'src/app/enums/user-type';
 import { ExaminationService } from 'src/app/services/examination-service';
 
 @Component({
@@ -8,8 +9,15 @@ import { ExaminationService } from 'src/app/services/examination-service';
 })
 export class ServicesComponent implements OnInit {
   publicLinks = [];
+  isEmployee = false;
 
-  constructor(private examinationService: ExaminationService) { }
+  constructor(private examinationService: ExaminationService) {
+    const userType = localStorage.getItem('userType');
+
+    if (userType == UserType[UserType.Employee]) {
+      this.isEmployee = true;
+    }
+  }
 
   ngOnInit(): void {
     this.getAllExaminations();
@@ -19,7 +27,6 @@ export class ServicesComponent implements OnInit {
     if (localStorage.getItem('labId') != null && localStorage.getItem('labId') != undefined) {
       this.examinationService.getAllLabExaminations(localStorage.getItem('labId') || '')
       .subscribe((result: any[]) => {
-        console.log(result);
         this.publicLinks = result;
       })
     }
