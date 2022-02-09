@@ -18,24 +18,28 @@ export class PatientService {
       username: boolean,
       password: string,
       email: string,
-  }) {
-      return this.http.post(`${this.baseUrl}/add`, values);
-  }
+    }) {
+        return this.http.post(`${this.baseUrl}/add`, values);
+    }
 
-  addPatientToLab(labId: string, patientId: string) {
-    return this.http.put(`http://localhost:8080/laboratory/${labId}/addPatient/${patientId}`, null);
-  }
+    addPatientToLab(labId: string, patientId: string) {
+      return this.http.put(`http://localhost:8080/laboratory/${labId}/addPatient/${patientId}`, null);
+    }
 
-  updatePatient(values: {
-    id: string,
-    password: string,
-    email: string,
-    laboratory_id: string,
-}) {
-  return this.http.put(`${this.baseUrl}/update`, values);
-  }
+    updatePatient(values: {
+      id: string,
+      password: string,
+      email: string,
+      laboratory_id: string,
+    }) {
+      return this.http.put(`${this.baseUrl}/update`, values);
+    }
 
-  getPatientDetails(id: string) {
-    return this.http.get(`${this.baseUrl}/${id}`);
-  }
+    getPatientDetails(id: string) {
+      return this.http.get(`${this.baseUrl}/${id}`);
+    }
+
+    removePatient(id: string) {
+      return this.http.delete(`${this.baseUrl}/delete/${id}`);
+    }
 }

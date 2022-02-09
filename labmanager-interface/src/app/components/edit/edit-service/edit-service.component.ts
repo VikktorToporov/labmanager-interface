@@ -22,7 +22,7 @@ export class EditServiceComponent implements OnInit {
       if(params && params.id) {
         this.examinationId = params.id;
 
-        this.examinationService.getExaminationDetails(this.examinationId)
+        this.examinationService.getExaminationTypeDetails(this.examinationId)
           .subscribe((result: any)=> {
             this.examinationDetails = result;
 
@@ -62,5 +62,12 @@ export class EditServiceComponent implements OnInit {
     } else {
       console.log('Invalid Form!');
     }
+  }
+
+  remove() {
+    this.examinationService.removeExaminationType(this.examinationId)
+      .subscribe((result: any)=> {
+        window.location.href = '/Services';
+    });
   }
 }

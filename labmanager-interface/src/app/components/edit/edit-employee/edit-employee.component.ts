@@ -63,4 +63,11 @@ export class EditEmployeeComponent implements OnInit {
       console.log('Invalid Form!');
     }
   }
+
+  remove() {
+    this.employeeService.removeEmployee(this.employeeId)
+      .subscribe((result: any)=> {
+        window.location.href = '/Get/Employees';
+    });
+  }
 }

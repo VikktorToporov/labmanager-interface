@@ -5,8 +5,8 @@
             <td mat-cell *matCellDef="let element" style="width: 70px;">
                 <div class="actions" *ngIf="dataType === enumTableDataType.EmployeeViewResults || dataType === enumTableDataType.EmployeeViewPatients || dataType === enumTableDataType.EmployeeViewEmployees">
                     <a *ngIf="dataType === enumTableDataType.EmployeeViewResults || dataType === enumTableDataType.EmployeeViewPatients" [routerLink]="['/Get/Results/' + element.patientId]" matTooltip="View patient's results"><i class="fas fa-clipboard-list"></i></a>
-                    <a (click)="edit(element)" matTooltip="Edit patient"><i class="fas fa-pen"></i></a>
-                    <a (click)="remove(element)" matTooltip="Remove patient"><i class="fas fa-trash"></i></a>
+                    <a (click)="edit(element)" matTooltip="Edit"><i class="fas fa-pen"></i></a>
+                    <a (click)="remove(element)" matTooltip="Remove"><i class="fas fa-trash"></i></a>
                 </div>
             </td>
         </ng-container>

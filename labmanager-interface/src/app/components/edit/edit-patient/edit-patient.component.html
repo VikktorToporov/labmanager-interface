@@ -1,9 +1,9 @@
 <div class="form">
-    <h2>Edit employee</h2>
+    <h2>Edit patient</h2>
     
-    <form *ngIf="employeeForm" [formGroup]="employeeForm">
-      <mat-stepper [linear]="isLinear" #stepper> 
-          <mat-step [stepControl]="employeeForm">
+    <form *ngIf="patientForm" [formGroup]="patientForm">
+      <mat-stepper [linear]="isLinear" #stepper>  
+          <mat-step [stepControl]="patientForm">
             <ng-template matStepLabel>Password</ng-template>
             <h3>Set your password</h3>
   
@@ -18,7 +18,7 @@
             </div>
           </mat-step>
 
-          <mat-step [stepControl]="employeeForm">
+          <mat-step [stepControl]="patientForm">
             <ng-template matStepLabel>Email</ng-template>
             <h3>Set your email</h3>
   
@@ -36,12 +36,12 @@
   
           <mat-step>
             <ng-template matStepLabel>Done</ng-template>
-            <h3>Employee Details</h3>
+            <h3>Patient Details</h3>
   
             <div class="done-info">
               <div>
-                <span>Password Length: <strong *ngIf="employeeForm.value.password; else notSelected">{{employeeForm.value.password.length}}</strong></span>
-                <span>Email: <strong *ngIf="employeeForm.value.email; else notSelected">{{employeeForm.value.email}}</strong></span>
+                <span>Password Length: <strong *ngIf="patientForm.value.password; else notSelected">{{patientForm.value.password.length}}</strong></span>
+                <span>Email: <strong *ngIf="patientForm.value.email; else notSelected">{{patientForm.value.email}}</strong></span>
   
                 <ng-template #notSelected>
                   <strong style="color: #ff8989">Not Selected</strong>
@@ -51,9 +51,11 @@
   
             <div class="btn-wrapper">
               <button mat-raised-button matStepperPrevious>Back</button>
-              <button mat-raised-button color="primary" (click)="save()">Add</button>
+              <button mat-raised-button color="primary" (click)="save()">Save</button>
             </div>
           </mat-step>
         </mat-stepper>
       </form>
-  </div>
+</div>
+
+<a class="removeBtn" (click)="remove()" matTooltip="Remove Patient"><i class="fas fa-trash"></i></a>

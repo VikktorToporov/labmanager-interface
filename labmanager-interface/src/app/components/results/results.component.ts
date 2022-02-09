@@ -15,6 +15,7 @@ import { PatientService } from 'src/app/services/patient-service';
 export class ResultsComponent implements OnInit {
   isEmployee!: boolean;
   tableType: string;
+  tableTitle: string;
   userId: string = null;
 
   dataType!: TableDataType;
@@ -36,6 +37,7 @@ export class ResultsComponent implements OnInit {
             this.init();
           } else if (params.id) {
             this.tableType = 'Results';
+            this.tableTitle = 'My Results';
             this.userId = params.id;
 
             this.init();
@@ -180,5 +182,9 @@ export class ResultsComponent implements OnInit {
         this.data = result;
       })
     }
+  }
+
+  refreshResults() {
+    this.getData();
   }
 }

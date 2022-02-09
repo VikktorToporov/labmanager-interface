@@ -46,6 +46,22 @@
     }
 }
 
+.removeBtn {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    color: white;
+    background-color: #346cd8;
+    padding: 10px 13px;
+    border-radius: 100%;
+    cursor: pointer;
+    transition: .3s;
+
+    &:hover {
+        background-color: #d72323;
+    }
+}
+
 ::ng-deep {
     .mat-stepper-horizontal {
         background-color: transparent;

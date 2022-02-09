@@ -68,9 +68,11 @@
   
             <div class="btn-wrapper">
               <button mat-raised-button matStepperPrevious>Back</button>
-              <button mat-raised-button color="primary" (click)="save()">Add</button>
+              <button mat-raised-button color="primary" (click)="save()">Save</button>
             </div>
           </mat-step>
         </mat-stepper>
       </form>
-  </div>
+</div>
+
+<a class="removeBtn" (click)="remove()" matTooltip="Remove Service"><i class="fas fa-trash"></i></a>

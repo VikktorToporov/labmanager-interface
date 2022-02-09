@@ -1,16 +1,19 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { AddNewEmployeeComponent } from './components/add-new-employee/add-new-employee.component';
-import { AddNewExaminationComponent } from './components/add-new-examination/add-new-examination.component';
-import { AddNewPatientComponent } from './components/add-new-patient/add-new-patient.component';
-import { AddNewServiceComponent } from './components/add-new-service/add-new-service.component';
-import { EditEmployeeComponent } from './components/edit-employee/edit-employee.component';
-import { EditPatientComponent } from './components/edit-patient/edit-patient.component';
-import { EditServiceComponent } from './components/edit-service/edit-service.component';
+
+// Main
 import { LabComponent } from './components/lab/lab.component';
 import { LoginFormComponent } from './components/login-form/login-form.component';
 import { ResultsComponent } from './components/results/results.component';
 import { ServicesComponent } from './components/services/services.component';
+
+// Add new
+import { AddNewExaminationComponent, AddNewEmployeeComponent, AddNewPatientComponent, AddNewServiceComponent, AddNewLabComponent } from './components/add-new';
+
+// Edit
+import { EditEmployeeComponent, EditExaminationComponent, EditPatientComponent, EditServiceComponent, EditLabComponent } from './components/edit';
+
+// Other
 import { AuthGuard } from './guards/auth.guard';
 
 const routes: Routes = [
@@ -23,10 +26,12 @@ const routes: Routes = [
   { path: 'Add/Examination', component: AddNewExaminationComponent, canActivate: [AuthGuard] },
   { path: 'Add/Employee', component: AddNewEmployeeComponent, canActivate: [AuthGuard] },
   { path: 'Add/Patient', component: AddNewPatientComponent, canActivate: [AuthGuard] },
+  { path: 'Add/Lab', component: AddNewLabComponent, canActivate: [AuthGuard] },
   { path: 'Add/Service', component: AddNewServiceComponent, canActivate: [AuthGuard] },
-  { path: 'Edit/Examination/:id', component: EditEmployeeComponent, canActivate: [AuthGuard] },
+  { path: 'Edit/Examination/:id', component: EditExaminationComponent, canActivate: [AuthGuard] },
   { path: 'Edit/Employee/:id', component: EditEmployeeComponent, canActivate: [AuthGuard] },
   { path: 'Edit/Patient/:id', component: EditPatientComponent, canActivate: [AuthGuard] },
+  { path: 'Edit/Lab', component: EditLabComponent, canActivate: [AuthGuard] },
   { path: 'Edit/Service/:id', component: EditServiceComponent, canActivate: [AuthGuard] },
 ];
 

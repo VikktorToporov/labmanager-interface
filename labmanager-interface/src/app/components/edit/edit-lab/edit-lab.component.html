@@ -1,0 +1,44 @@
+<div class="form">
+    <h2>Edit laboratory</h2>
+    
+    <form *ngIf="laboratoryForm" [formGroup]="laboratoryForm">
+      <mat-stepper [linear]="isLinear" #stepper>
+          <mat-step [stepControl]="laboratoryForm">
+            <ng-template matStepLabel>Name</ng-template>
+            <h3>Set laboratory name</h3>
+  
+            <mat-form-field appearance="fill">
+              <mat-label>Name</mat-label>
+  
+              <input matInput formControlName="name" placeholder="">
+            </mat-form-field>
+  
+            <div class="btn-wrapper">
+              <button mat-raised-button color="primary" matStepperNext>Next</button>
+            </div>
+          </mat-step>
+  
+          <mat-step>
+            <ng-template matStepLabel>Done</ng-template>
+            <h3>Laboratory Details</h3>
+  
+            <div class="done-info">
+              <div>
+                <span>Name: <strong *ngIf="laboratoryForm.value.name; else notSelected">{{laboratoryForm.value.name}}</strong></span>
+  
+                <ng-template #notSelected>
+                  <strong style="color: #ff8989">Not Selected</strong>
+                </ng-template>
+              </div>
+            </div>
+  
+            <div class="btn-wrapper">
+              <button mat-raised-button matStepperPrevious>Back</button>
+              <button mat-raised-button color="primary" (click)="save()">Save</button>
+            </div>
+          </mat-step>
+        </mat-stepper>
+      </form>
+</div>
+
+<a class="removeBtn" (click)="remove()" matTooltip="Remove Lab"><i class="fas fa-trash"></i></a>

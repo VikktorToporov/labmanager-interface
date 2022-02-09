@@ -21,10 +21,13 @@
             <i mat-button [matMenuTriggerFor]="menu" class="fas fa-sort-down"></i>
 
             <mat-menu #menu="matMenu" yPosition="above">
+                <!-- COMMENT: move all to a new comp with info-box for each -->
                 <a *ngIf="userType == enumUserType.Employee" routerLink="/Add/Examination" mat-menu-item>Add Examination</a>
                 <a *ngIf="userType == enumUserType.Employee" routerLink="/Add/Employee" mat-menu-item>Add Employee</a>
                 <a *ngIf="userType == enumUserType.Employee" routerLink="/Add/Patient" mat-menu-item>Add Patient</a>
                 <a *ngIf="userType == enumUserType.Employee" routerLink="/Add/Service" mat-menu-item>Add Service</a>
+                <a *ngIf="userType == enumUserType.Employee" routerLink="/Add/Lab" mat-menu-item>Add Laboratory</a>
+                <a *ngIf="userType == enumUserType.Employee" routerLink="/Edit/Lab" mat-menu-item>Edit Laboratory</a>
                 <a (click)="logout()" mat-menu-item>Log Out</a>
             </mat-menu>
         </span>

@@ -1,36 +1,15 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { ExaminationService } from 'src/app/services/examination-service';
+import { BaseExaminationComponent } from '../../shared/base-examination/base-examination.component';
 
 @Component({
   selector: 'app-add-new-examination',
   templateUrl: './add-new-examination.component.html',
   styleUrls: ['./add-new-examination.component.scss']
 })
-export class AddNewExaminationComponent implements OnInit {
-  isLinear = false;
-  examinationForm: FormGroup;
-
-  patients = [
-    {id: '1', name: 'Patient1'},
-    {id: '2', name: 'Patient2'},
-    {id: '3', name: 'Patient3'},
-  ];
-
-  examinationTypes = [
-    {id: '1', name: 'ExamType1'},
-    {id: '2', name: 'ExamType2'},
-    {id: '3', name: 'ExamType3'},
-  ];
-
-  statuses = [
-    {id: true, name: 'Done'},
-    {id: false, name: 'In Progress'},
-  ];
-  
-  constructor(private _formBuilder: FormBuilder, private examinationService: ExaminationService) {}
-
+export class AddNewExaminationComponent extends BaseExaminationComponent implements OnInit {
   ngOnInit() {
+    this.localStorageLabId = localStorage.getItem('labId');
+
     this.examinationForm = this._formBuilder.group({
       patient_id: [null],
       examinationType_id: [null],
@@ -38,8 +17,11 @@ export class AddNewExaminationComponent implements OnInit {
       completed: [null],
       madeOnDate: [''],
       employee_id: [localStorage.getItem('userId')],
-      laboratory_id: [localStorage.getItem('labId')],
+      laboratory_id: [this.localStorageLabId],
     });
+
+    this.getPatients();
+    this.getExaminationTypes();
   }
 
   save() {
@@ -76,15 +58,5 @@ export class AddNewExaminationComponent implements OnInit {
     } else {
       console.log('Invalid Form!');
     }
-  }
-
-  convertDate() {
-    const formDate = this.examinationForm.value.madeOnDate;
-
-    if (formDate && formDate._i && formDate._i.date && formDate._i.month && formDate._i.year) {
-      return formDate._i.date + '/' + (formDate._i.month + 1) + '/' + formDate._i.year;
-    }
-
-    return formDate;
   }
 }

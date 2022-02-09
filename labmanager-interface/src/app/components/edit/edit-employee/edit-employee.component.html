@@ -1,24 +1,8 @@
 <div class="form">
-    <h2>Add a new employee</h2>
+    <h2>Edit employee</h2>
     
-    <form [formGroup]="employeeForm">
-      <mat-stepper [linear]="isLinear" #stepper>
-          <mat-step [stepControl]="employeeForm">
-            <ng-template matStepLabel>Username</ng-template>
-            <h3>Set your username</h3>
-  
-            <mat-form-field appearance="fill">
-              <mat-label>Username</mat-label>
-  
-              <input matInput formControlName="username" placeholder="">
-            </mat-form-field>
-  
-            <div class="btn-wrapper">
-              <button mat-raised-button matStepperPrevious>Back</button>
-              <button mat-raised-button color="primary" matStepperNext>Next</button>
-            </div>
-          </mat-step>
-  
+    <form *ngIf="employeeForm" [formGroup]="employeeForm">
+      <mat-stepper [linear]="isLinear" #stepper> 
           <mat-step [stepControl]="employeeForm">
             <ng-template matStepLabel>Password</ng-template>
             <h3>Set your password</h3>
@@ -30,7 +14,6 @@
             </mat-form-field>
   
             <div class="btn-wrapper">
-              <button mat-raised-button matStepperPrevious>Back</button>
               <button mat-raised-button color="primary" matStepperNext>Next</button>
             </div>
           </mat-step>
@@ -57,7 +40,6 @@
   
             <div class="done-info">
               <div>
-                <span>Username: <strong *ngIf="employeeForm.value.username; else notSelected">{{employeeForm.value.username}}</strong></span>
                 <span>Password Length: <strong *ngIf="employeeForm.value.password; else notSelected">{{employeeForm.value.password.length}}</strong></span>
                 <span>Email: <strong *ngIf="employeeForm.value.email; else notSelected">{{employeeForm.value.email}}</strong></span>
   
@@ -69,9 +51,11 @@
   
             <div class="btn-wrapper">
               <button mat-raised-button matStepperPrevious>Back</button>
-              <button mat-raised-button color="primary" (click)="save()">Add</button>
+              <button mat-raised-button color="primary" (click)="save()">Save</button>
             </div>
           </mat-step>
         </mat-stepper>
       </form>
-  </div>
+</div>
+
+<a class="removeBtn" (click)="remove()" matTooltip="Remove Employee"><i class="fas fa-trash"></i></a>

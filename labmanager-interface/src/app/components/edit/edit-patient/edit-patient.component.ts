@@ -63,4 +63,11 @@ export class EditPatientComponent implements OnInit {
       console.log('Invalid Form!');
     }
   }
+
+  remove() {
+    this.patientService.removePatient(this.patientId)
+      .subscribe((result: any)=> {
+        window.location.href = '/Get/Patients';
+    });
+  }
 }

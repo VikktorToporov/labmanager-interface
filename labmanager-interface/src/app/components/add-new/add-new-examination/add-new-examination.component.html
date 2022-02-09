@@ -1,7 +1,7 @@
 <div class="form">
   <h2>Add a new examination</h2>
-  
-  <form [formGroup]="examinationForm">
+
+  <form *ngIf="examinationForm && patients.length > 0 && examinationTypes.length > 0" [formGroup]="examinationForm">
     <mat-stepper [linear]="isLinear" #stepper>
         <mat-step [stepControl]="examinationForm">
           <ng-template matStepLabel>Select Patient</ng-template>
@@ -12,7 +12,7 @@
 
             <mat-select formControlName="patient_id">
               <mat-option *ngFor="let patient of patients" [value]="patient.id">
-                {{patient.name}}
+                {{patient.username}}
               </mat-option>
             </mat-select>
 
@@ -91,7 +91,7 @@
 
           <div class="done-info">
             <div>
-              <span>Patient: <strong *ngIf="examinationForm.value.patient_id | nameFromValueObject: patients; else notSelected">{{examinationForm.value.patient_id | nameFromValueObject: patients}}</strong></span>
+              <span>Patient: <strong *ngIf="examinationForm.value.patient_id | nameFromValueObject : patients : 'username'; else notSelected">{{examinationForm.value.patient_id | nameFromValueObject : patients : 'username'}}</strong></span>
               <span>Examination Type: <strong *ngIf="examinationForm.value.examinationType_id | nameFromValueObject: examinationTypes; else notSelected">{{examinationForm.value.examinationType_id | nameFromValueObject: examinationTypes}}</strong></span>
               <span>Status: <strong *ngIf="(examinationForm.value.completed | nameFromValueObject: statuses) != ''; else notSelected">{{examinationForm.value.completed | nameFromValueObject: statuses}}</strong></span>
               <span>Date: <strong *ngIf="examinationForm.value.madeOnDate | dateToReadable; else notSelected">{{examinationForm.value.madeOnDate | dateToReadable}}</strong></span>
