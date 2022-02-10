@@ -35,16 +35,13 @@ export class AddNewExaminationComponent extends BaseExaminationComponent impleme
       const laboratory_id = this.examinationForm.value.laboratory_id;
 
       const examination = {
-        madeOnDate: date,
-        patient_id: patient_id,
+        madeOnDate: '11/02/2022',
         information: information,
         completed: completed,
-        employee_id: employee_id,
-        examinationType_id: examinationType_id,
-        laboratory_id: laboratory_id,
       };
 
-      this.examinationService.addExamination(examination)
+
+      this.examinationService.addExamination(examination, patient_id, employee_id, examinationType_id, laboratory_id)
         .subscribe((result: any)=> {
           if (result && result.id) {
             this.examinationService.addExaminationToLab(laboratory_id, result.id)

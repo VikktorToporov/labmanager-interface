@@ -30,13 +30,9 @@ export class ExaminationService {
     addExamination(values: {
         completed: boolean,
         information: string,
-        employee_id: string,
-        patient_id: string,
         madeOnDate: string,
-        examinationType_id: string,
-        laboratory_id: string,
-    }) {
-        return this.http.post(`${this.baseUrl}/add`, values);
+    }, patient_id, employee_id, examinationType_id, laboratory_id) {
+        return this.http.post(`${this.baseUrl}/create/${examinationType_id}/${patient_id}/${employee_id}`, values);
     }
 
     addExaminationToLab(labId: string, examId: string) {
@@ -56,7 +52,7 @@ export class ExaminationService {
     }
 
     getExaminationDetails(id: string) {
-        return this.http.get(`${this.baseUrl}/${id}`);
+        return this.http.get(`${this.baseUrl}/dto/${id}`);
     }
 
     getExaminationTypeDetails(id: string) {
