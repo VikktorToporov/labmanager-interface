@@ -36,7 +36,6 @@ export class EditEmployeeComponent implements OnInit {
     this.employeeForm = this._formBuilder.group({
       password: [''],
       email: [this.employeeDetails.email],
-      laboratory_id: [localStorage.getItem('labId')],
     });
   }
 
@@ -44,15 +43,19 @@ export class EditEmployeeComponent implements OnInit {
     if (this.employeeForm.valid) {
       const password = this.employeeForm.value.password;
       const email = this.employeeForm.value.email;
-      const laboratory_id = this.employeeForm.value.laboratory_id;
 
       const employee = {
         id: this.employeeId,
-        password: password,
-        email: email,
-        laboratory_id: laboratory_id,
       };
 
+      if (this.employeeDetails.email !== email) {
+        employee['email'] = email;
+      }
+      
+      if (password && password.length > 0) {
+        employee['password'] = password;
+      }
+      
       this.employeeService.updateEmployee(employee)
         .subscribe((result: any)=> {
           if (result) {

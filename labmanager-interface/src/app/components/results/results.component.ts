@@ -68,8 +68,8 @@ export class ResultsComponent implements OnInit {
     if (this.localStorageUserType === UserType.Patient) {
       this.isEmployee = false;
 
-      if (this.tableType == TableType[TableType.Employees] || this.tableType == TableType[TableType.Patients] || this.userId == null) {
-        window.location.href = '/lab';
+      if (this.tableType == TableType[TableType.Employees] || this.tableType == TableType[TableType.Patients]) {
+        window.location.href = '/Lab';
       }
     } else {
       this.isEmployee = true;

@@ -2,7 +2,7 @@
     <h1 [routerLink]="'/Lab'" class="header-title font-size-large">{{labName}}</h1>
 
     <ul class="header-links font-size-big">
-        <li [routerLink]="userType === enumUserType.Employee ? ['/Get/Results/' + userId] : []">My Results</li>
+        <li [routerLink]="['/Get/Results/' + userId]">My Results</li>
         <li [routerLink]="'/Services'">Services</li>
         <li [routerLink]="'/Lab'">Laboratory</li>
     </ul>

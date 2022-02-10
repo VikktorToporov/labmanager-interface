@@ -87,7 +87,6 @@ export class ExaminationService {
         return this.http.delete(`${this.baseUrl}/delete/${id}`);
     }
 
-    // COMMENT: add option to remove from lab and not delete the whole type; more than one lab may use the same type
     removeExaminationType(id: string) {
         return this.http.delete(`${this.baseUrl}_type/delete/${id}`);
     }

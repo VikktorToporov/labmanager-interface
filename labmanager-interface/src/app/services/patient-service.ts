@@ -28,9 +28,8 @@ export class PatientService {
 
     updatePatient(values: {
       id: string,
-      password: string,
-      email: string,
-      laboratory_id: string,
+      password?: string,
+      email?: string,
     }) {
       return this.http.put(`${this.baseUrl}/update`, values);
     }

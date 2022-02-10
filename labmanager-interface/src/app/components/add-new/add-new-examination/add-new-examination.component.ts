@@ -45,15 +45,15 @@ export class AddNewExaminationComponent extends BaseExaminationComponent impleme
       };
 
       this.examinationService.addExamination(examination)
-      .subscribe((result: any)=> {
-        if (result && result.id) {
-          this.examinationService.addExaminationToLab(laboratory_id, result.id)
-              .subscribe((result: any)=> {
-                if (result) {
-                  window.location.href = '/Get/Results';
-                }
-              });
-        }
+        .subscribe((result: any)=> {
+          if (result && result.id) {
+            this.examinationService.addExaminationToLab(laboratory_id, result.id)
+                .subscribe((result: any)=> {
+                  if (result) {
+                    window.location.href = '/Get/Results';
+                  }
+                });
+          }
       });
     } else {
       console.log('Invalid Form!');

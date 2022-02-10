@@ -36,7 +36,6 @@ export class EditPatientComponent implements OnInit {
     this.patientForm = this._formBuilder.group({
       password: [''],
       email: [this.patientDetails.email],
-      laboratory_id: [localStorage.getItem('labId')],
     });
   }
 
@@ -44,14 +43,18 @@ export class EditPatientComponent implements OnInit {
     if (this.patientForm.valid) {
       const password = this.patientForm.value.password;
       const email = this.patientForm.value.email;
-      const laboratory_id = this.patientForm.value.laboratory_id;
 
       const patient = {
         id: this.patientId,
-        password: password,
-        email: email,
-        laboratory_id: laboratory_id,
       };
+
+      if (this.patientDetails.email !== email) {
+        patient['email'] = email;
+      }
+      
+      if (password && password.length > 0) {
+        patient['password'] = password;
+      }
 
       this.patientService.updatePatient(patient)
         .subscribe((result: any)=> {

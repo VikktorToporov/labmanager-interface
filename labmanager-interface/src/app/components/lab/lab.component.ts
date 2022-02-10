@@ -8,7 +8,8 @@ import { UserType } from 'src/app/enums/user-type';
 })
 export class LabComponent {
   isEmployee = false;
-
+  labName: string;
+  
   publicLinks = [
     {
       title: 'Results',
@@ -41,6 +42,7 @@ export class LabComponent {
 
   constructor() {
     const userType = localStorage.getItem('userType');
+    this.labName = localStorage.getItem('labName');
 
     if (userType == UserType[UserType.Employee]) {
       this.isEmployee = true;
