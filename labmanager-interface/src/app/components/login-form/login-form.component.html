@@ -1,23 +1,73 @@
-<div class="login">
+<a (click)="showLogin = !showLogin; showLoginInfoTitle = false" class="form-toggle">{{showLogin ? 'Signup' : 'Login'}}</a>
+
+<div class="login" *ngIf="showLogin">
+    <span *ngIf="showLoginInfoTitle">Now enter your credentials to login.</span>
+    <span *ngIf="showError" class="error">There was an error.</span>
+
     <h2>Login</h2>
 
-    <div class="login-box">
-        <mat-form-field appearance="fill">
-            <mat-label>Email</mat-label>
-            <input #email matInput>
-        </mat-form-field>
-    </div>
-    
-    <div class="login-box">
-        <mat-form-field appearance="fill">
-            <mat-label>Password</mat-label>
-            <input #pass matInput>
-        </mat-form-field>
-    </div>
-    
-    <div class="login-box">
-        <a (click)="login(email.value, pass.value)" mat-raised-button color="primary">Login</a>
-        <a (click)="signup()" mat-raised-button color="primary">Signup</a>
-    </div>
-    
+    <form *ngIf="loginForm" [formGroup]="loginForm">
+        <div class="login-box">
+            <mat-form-field appearance="fill">
+                <mat-label>Email</mat-label>
+                <input formControlName="email" matInput>
+            </mat-form-field>
+        </div>
+        
+        <div class="login-box">
+            <mat-form-field appearance="fill">
+                <mat-label>Password</mat-label>
+                <input formControlName="password" matInput>
+            </mat-form-field>
+        </div>
+        
+        <div class="login-box">
+            <a (click)="login()" mat-raised-button color="primary">Login</a>
+        </div>
+    </form>
+</div>
+
+<div class="signup" *ngIf="!showLogin">
+    <span *ngIf="showError" class="error">There was an error.</span>
+
+    <h2>Signup</h2>
+    <span class="signup-info">as a patient</span>
+
+    <form *ngIf="signupForm" [formGroup]="signupForm">
+        <div class="signup-box">
+            <mat-form-field appearance="fill">
+                <mat-label>Username</mat-label>
+                <input formControlName="username" matInput>
+            </mat-form-field>
+        </div>
+
+        <div class="signup-box">
+            <mat-form-field appearance="fill">
+                <mat-label>Email</mat-label>
+                <input formControlName="email" matInput>
+            </mat-form-field>
+        </div>
+        
+        <div class="signup-box">
+            <mat-form-field appearance="fill">
+                <mat-label>Password</mat-label>
+                <input formControlName="password" matInput>
+            </mat-form-field>
+        </div>
+
+        <div class="signup-box">
+            <mat-form-field appearance="fill">
+                <mat-label>Laboratory</mat-label>
+                <mat-select formControlName="laboratoryId">
+                    <mat-option *ngFor="let laboratory of laboratories" [value]="laboratory.id">
+                        {{laboratory.hospitalName}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+
+        <div class="signup-box">
+            <a (click)="signup()" mat-raised-button color="primary">Signup</a>
+        </div>
+    </form>
 </div>

@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { UserType } from '../enums/user-type';
 
 
 @Injectable({
@@ -10,7 +11,7 @@ export class UserService {
 
     constructor(private http: HttpClient) { }
 
-    getAll() {
+    getAllLaboratories() {
         return this.http.get(`${this.baseUrl}/laboratory/all`);
     }
 
@@ -25,17 +26,15 @@ export class UserService {
         return this.http.get(`${this.baseUrl}/user/userAuth?email=${user.email}&password=${user.password}`);
     }
 
-    signup() {
-        const user = {
-            username: 'usr',
-            password: 'kristiyan',
-            dtype: 'patient',
-            email: 'email2@email.com',
-            laboratory: {
-                id: '1'
-            }
-        };
+    signup(userType: UserType, user: {
+        username: string,
+        password: string,
+        email: string,
+    }) {
+        return this.http.post(`${this.baseUrl}/${UserType[userType].toLowerCase()}/add`, user);
+    }
 
-        return this.http.post(`${this.baseUrl}/user/add`, user);
+    addUserToLab(labId: string, userId: string, userType: UserType) {
+        return this.http.put(`${this.baseUrl}/laboratory/${labId}/add${UserType[userType]}/${userId}`, null);
     }
 }

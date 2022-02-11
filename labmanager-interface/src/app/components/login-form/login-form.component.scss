@@ -1,4 +1,5 @@
-.login {
+.login,
+.signup {
     height: 100vh;
     display: flex;
     flex-direction: column;
@@ -16,5 +17,31 @@
                 transform: scale(1.1);
             }
         }
+    }
+
+    &-info {
+        margin: -17px 0 20px;
+        font-size: 12px;
+    }
+
+    span {
+        color: #3f51b5;
+    }
+
+    .error {
+        color: red;
+    }
+}
+
+.form-toggle {
+    position: absolute;
+    top: 30px;
+    right: 30px;
+    cursor: pointer;
+    transition: .3s;
+
+    &:hover {
+        transform: scale(1.2);
+        font-weight: 500;
     }
 }

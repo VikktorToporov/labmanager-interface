@@ -41,6 +41,7 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
 import { MomentDateAdapter } from '@angular/material-moment-adapter';
 import { MatTooltipModule } from '@angular/material/tooltip';
+
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 export const DateFormats = {
