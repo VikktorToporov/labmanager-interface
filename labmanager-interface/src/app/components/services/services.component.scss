@@ -1,5 +1,6 @@
 .services {
-    margin-top: 100px;
+    margin-top: 150px;
+    padding-bottom: 100px;
 
     h2 {
         font-size: 40px;
@@ -13,8 +14,32 @@
 
     &-links {
         display: grid;
-        grid-template-columns: 250px 250px 250px 250px;
+        grid-template-columns: 250px;
         grid-template-rows: 1fr;
         grid-gap: 50px 50px;
+    }
+}
+
+@media only screen and (min-width: 330px) {
+    .services {
+        margin-top: 100px;
+    }
+}
+
+@media only screen and (min-width: 600px) {
+    .services {
+        padding-bottom: 0;
+
+        &-links {
+            grid-template-columns: 250px 250px;
+        }
+    }
+}
+
+@media only screen and (min-width: 900px) {
+    .services {
+        &-links {
+            grid-template-columns: 250px 250px 250px;
+        }
     }
 }

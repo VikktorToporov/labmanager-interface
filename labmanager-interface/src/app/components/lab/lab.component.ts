@@ -12,12 +12,6 @@ export class LabComponent {
   
   publicLinks = [
     {
-      title: 'Results',
-      icon: '../../../assets/check-list.png',
-      link: '/Get/Results',
-      text: null,
-    },
-    {
       title: 'Services',
       icon: '../../../assets/check-list.png',
       link: '/Services',
@@ -26,6 +20,12 @@ export class LabComponent {
   ];
 
   privateLinks = [
+    {
+      title: 'Results',
+      icon: '../../../assets/check-list.png',
+      link: '/Get/Results/All',
+      text: null,
+    },
     {
       title: 'Employees',
       icon: '../../../assets/check-list.png',

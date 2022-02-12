@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { verifyGeneric, verifyText } from 'src/app/shared-methods/validations';
 import { BaseExaminationComponent } from '../../shared/base-examination/base-examination.component';
 
 @Component({
@@ -17,7 +18,6 @@ export class AddNewExaminationComponent extends BaseExaminationComponent impleme
       completed: [null],
       madeOnDate: [''],
       employee_id: [localStorage.getItem('userId')],
-      laboratory_id: [this.localStorageLabId],
     });
 
     this.getPatients();
@@ -26,32 +26,29 @@ export class AddNewExaminationComponent extends BaseExaminationComponent impleme
 
   save() {
     if (this.examinationForm.valid) {
-      const date = this.convertDate();
+      const date = this.convertDate(this.examinationForm.value.madeOnDate);
       const patient_id = this.examinationForm.value.patient_id;
       const examinationType_id = this.examinationForm.value.examinationType_id;
       const information = this.examinationForm.value.information;
       const completed = this.examinationForm.value.completed;
       const employee_id = this.examinationForm.value.employee_id;
-      const laboratory_id = this.examinationForm.value.laboratory_id;
 
-      const examination = {
-        madeOnDate: '11/02/2022',
-        information: information,
-        completed: completed,
-      };
-
-
-      this.examinationService.addExamination(examination, patient_id, employee_id, examinationType_id, laboratory_id)
-        .subscribe((result: any)=> {
-          if (result && result.id) {
-            this.examinationService.addExaminationToLab(laboratory_id, result.id)
-                .subscribe((result: any)=> {
-                  if (result) {
-                    window.location.href = '/Get/Results';
-                  }
-                });
-          }
-      });
+      if (verifyGeneric(date) && verifyGeneric(patient_id) && verifyGeneric(examinationType_id) && verifyText(information) && verifyGeneric(completed) && verifyGeneric(employee_id)) {
+        const examination = {
+          madeOnDate: date,
+          information: information,
+          completed: completed,
+        };
+  
+        this.examinationService.addExamination(examination, patient_id, employee_id, examinationType_id)
+          .subscribe((result: any)=> {
+            if (result) {
+              window.location.href = '/Get/Results/All';
+            }
+        });
+      } else {
+        console.log('Data failed verification!');
+      }
     } else {
       console.log('Invalid Form!');
     }

@@ -15,13 +15,17 @@ import { EditEmployeeComponent, EditExaminationComponent, EditPatientComponent, 
 
 // Other
 import { AuthGuard } from './guards/auth.guard';
+import { PatientsComponent } from './components/patients/patients.component';
+import { EmployeesComponent } from './components/employees/employees.component';
 
 const routes: Routes = [
   { path: '', component: LoginFormComponent },
   { path: 'Login', component: LoginFormComponent },
   { path: 'Lab', component: LabComponent, canActivate: [AuthGuard] },
   { path: 'Services', component: ServicesComponent, canActivate: [AuthGuard] },
-  { path: 'Get/:type', component: ResultsComponent, canActivate: [AuthGuard] },
+  { path: 'Get/Patients', component: PatientsComponent, canActivate: [AuthGuard] },
+  { path: 'Get/Employees', component: EmployeesComponent, canActivate: [AuthGuard] },
+  { path: 'Get/Results/All', component: ResultsComponent, canActivate: [AuthGuard] },
   { path: 'Get/Results/:id', component: ResultsComponent, canActivate: [AuthGuard] },
   { path: 'Add/Examination', component: AddNewExaminationComponent, canActivate: [AuthGuard] },
   { path: 'Add/Employee', component: AddNewEmployeeComponent, canActivate: [AuthGuard] },

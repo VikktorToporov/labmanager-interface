@@ -13,7 +13,6 @@
 
             <div class="header-profile_info_text">
                 <span class="font-size-normal">{{username}}</span>
-                <span class="font-size-small">{{userId}}</span>
             </div>
         </div>
 
@@ -21,7 +20,9 @@
             <i mat-button [matMenuTriggerFor]="menu" class="fas fa-sort-down"></i>
 
             <mat-menu #menu="matMenu" yPosition="above">
-                <!-- COMMENT: move all to a new comp with info-box for each -->
+                <a *ngIf="userType == enumUserType.Employee" [routerLink]="['/Get/Results/' + userId]" mat-menu-item class="header-links-mobile"> My Results</a>
+                <a *ngIf="userType == enumUserType.Employee" routerLink="'/Services'" mat-menu-item class="header-links-mobile" >Services</a>
+                <a *ngIf="userType == enumUserType.Employee" routerLink="'/Lab'" mat-menu-item class="header-links-mobile" >Laboratory</a>
                 <a *ngIf="userType == enumUserType.Employee" routerLink="/Add/Examination" mat-menu-item>Add Examination</a>
                 <a *ngIf="userType == enumUserType.Employee" routerLink="/Add/Employee" mat-menu-item>Add Employee</a>
                 <a *ngIf="userType == enumUserType.Employee" routerLink="/Add/Patient" mat-menu-item>Add Patient</a>

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { EmployeeService } from 'src/app/services/employee-service';
+import { verifyName } from 'src/app/shared-methods/validations';
 
 @Component({
   selector: 'app-add-new-lab',
@@ -23,21 +24,25 @@ export class AddNewLabComponent implements OnInit {
     if (this.laboratoryForm.valid) {
       const name = this.laboratoryForm.value.name;
 
-      const laboratory = {
-        hospitalName: name,
-      };
-
-      this.employeeService.addLaboratory(laboratory)
-        .subscribe((result: any)=> {
-          if (result && result.id) {
-            this.employeeService.addEmployeeToLab(result.id, localStorage.getItem('userId'))
-              .subscribe((result: any)=> {
-                if (result) {
-                   window.location.href = '/Lab';
-                }
-              });
-          }
-        });
+      if (verifyName(name)) {
+        const laboratory = {
+          hospitalName: name,
+        };
+  
+        this.employeeService.addLaboratory(laboratory)
+          .subscribe((result: any)=> {
+            if (result && result.id) {
+              this.employeeService.addEmployeeToLab(result.id, localStorage.getItem('userId'))
+                .subscribe((result: any)=> {
+                  if (result) {
+                     window.location.href = '/Lab';
+                  }
+                });
+            }
+          });
+      } else {
+        console.log('Name failed verification!');
+      }
     } else {
       console.log('Invalid Form!');
     }

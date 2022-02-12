@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { ExaminationService } from 'src/app/services/examination-service';
+import { verifyName, verifyText, verifyGeneric } from 'src/app/shared-methods/validations';
 
 @Component({
   selector: 'app-edit-service',
@@ -46,19 +47,23 @@ export class EditServiceComponent implements OnInit {
       const description = this.examinationForm.value.description;
       const price = this.examinationForm.value.price;
 
-      const examinationType = {
-        id: this.examinationId,
-        name: name,
-        description: description,
-        price: price,
-      };
-
-      this.examinationService.updateExaminationType(examinationType)
-        .subscribe((result: any)=> {
-          if (result) {
-            window.location.href = '/Services';
-          }
-        });
+      if (verifyName(name) && verifyText(description) && verifyGeneric(price)) {
+        const examinationType = {
+          id: this.examinationId,
+          name: name,
+          description: description,
+          price: price,
+        };
+  
+        this.examinationService.updateExaminationType(examinationType)
+          .subscribe((result: any)=> {
+            if (result) {
+              window.location.href = '/Services';
+            }
+          });
+      } else {
+        console.log('Data failed verification!');
+      }
     } else {
       console.log('Invalid Form!');
     }

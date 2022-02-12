@@ -1,3 +1,5 @@
+<h1 class="logo">Lab Manager</h1>
+
 <a (click)="showLogin = !showLogin; showLoginInfoTitle = false" class="form-toggle">{{showLogin ? 'Signup' : 'Login'}}</a>
 
 <div class="login" *ngIf="showLogin">
@@ -17,7 +19,7 @@
         <div class="login-box">
             <mat-form-field appearance="fill">
                 <mat-label>Password</mat-label>
-                <input formControlName="password" matInput>
+                <input type="password" formControlName="password" matInput>
             </mat-form-field>
         </div>
         

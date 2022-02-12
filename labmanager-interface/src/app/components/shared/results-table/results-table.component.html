@@ -3,52 +3,56 @@
         <ng-container matColumnDef="Actions">
             <th mat-header-cell *matHeaderCellDef> {{dataType === enumTableDataType.EmployeeViewResults || dataType === enumTableDataType.EmployeeViewPatients || dataType === enumTableDataType.EmployeeViewEmployees ? 'Actions' : ''}} </th>
             <td mat-cell *matCellDef="let element" style="width: 70px;">
-                <div class="actions" *ngIf="dataType === enumTableDataType.EmployeeViewResults || dataType === enumTableDataType.EmployeeViewPatients || dataType === enumTableDataType.EmployeeViewEmployees">
-                    <a *ngIf="dataType === enumTableDataType.EmployeeViewResults || dataType === enumTableDataType.EmployeeViewPatients" [routerLink]="['/Get/Results/' + element.patientId]" matTooltip="View patient's results"><i class="fas fa-clipboard-list"></i></a>
-                    <a (click)="edit(element)" matTooltip="Edit"><i class="fas fa-pen"></i></a>
-                    <a (click)="remove(element)" matTooltip="Remove"><i class="fas fa-trash"></i></a>
+                <div class="actions">
+                    <a *ngIf="dataType === enumTableDataType.EmployeeViewPatients" [routerLink]="['/Get/Results/' + element.id]" matTooltip="View patient's results"><i class="fas fa-clipboard-list"></i></a>
+                    <a *ngIf="dataType === enumTableDataType.PatientViewResults || dataType === enumTableDataType.EmployeeViewResults" (click)="openResultInfoDialog(element?.information)" matTooltip="View test information"><i class="fas fa-clipboard-list"></i></a>
+                   
+                    <ng-container *ngIf="dataType === enumTableDataType.EmployeeViewResults || dataType === enumTableDataType.EmployeeViewPatients || dataType === enumTableDataType.EmployeeViewEmployees">
+                        <a (click)="edit(element)" matTooltip="Edit"><i class="fas fa-pen"></i></a>
+                        <a *ngIf="element?.id != localStorageUserId" (click)="remove(element)" matTooltip="Remove"><i class="fas fa-trash"></i></a>
+                    </ng-container>
                 </div>
             </td>
         </ng-container>
 
         <ng-container matColumnDef="Patient ID">
             <th mat-header-cell *matHeaderCellDef> Patient ID </th>
-            <td mat-cell *matCellDef="let element" style="width: 70px;"> {{element?.patientId}} </td>
+            <td mat-cell *matCellDef="let element" style="width: 70px;"> {{dataType === enumTableDataType.EmployeeViewResults ? element?.patientId : element?.id}} </td>
         </ng-container>
 
         <ng-container matColumnDef="Employee ID">
             <th mat-header-cell *matHeaderCellDef> Employee ID </th>
-            <td mat-cell *matCellDef="let element"> {{element?.employeeId}} </td>
+            <td mat-cell *matCellDef="let element"> {{element?.id}} </td>
         </ng-container>
 
         <ng-container matColumnDef="Patient">
             <th mat-header-cell *matHeaderCellDef> Patient </th>
-            <td mat-cell *matCellDef="let element" > {{element?.patientUsername}} </td>
+            <td mat-cell *matCellDef="let element" class="colored-item"> {{dataType === enumTableDataType.EmployeeViewResults ? element?.patientUsername : element?.username}} </td>
         </ng-container>
 
         <ng-container matColumnDef="Employee">
             <th mat-header-cell *matHeaderCellDef> Employee </th>
-            <td mat-cell *matCellDef="let element" > {{element?.employeeUsername}} </td>
+            <td mat-cell *matCellDef="let element" class="colored-item"> {{dataType === enumTableDataType.PatientViewResults || dataType === enumTableDataType.EmployeeViewResults ? element?.employeeUsername : element?.username}} </td>
         </ng-container>
 
         <ng-container matColumnDef="Email">
             <th mat-header-cell *matHeaderCellDef> Email </th>
-            <td mat-cell *matCellDef="let element" > <a [href]="'mailto:' + element.email"></a>{{element.email}} </td>
+            <td mat-cell *matCellDef="let element" > <a [href]="'mailto:' + element.email" class="colored-item">{{element.email}}</a> </td>
         </ng-container>
 
         <ng-container matColumnDef="Test">
             <th mat-header-cell *matHeaderCellDef> Test </th>
-            <td mat-cell *matCellDef="let element" > {{element.examinationType}} </td>
+            <td mat-cell *matCellDef="let element" class="colored-item"> {{element.examinationType}} </td>
         </ng-container>
 
         <ng-container matColumnDef="Status">
             <th mat-header-cell *matHeaderCellDef> Status </th>
-            <td mat-cell *matCellDef="let element"> {{element.completed ? 'Done' : 'In Progress'}} </td>
+            <td mat-cell *matCellDef="let element" class="colored-item"> {{element.completed ? 'Done' : 'In Progress'}} </td>
         </ng-container>
 
         <ng-container matColumnDef="Date">
             <th mat-header-cell *matHeaderCellDef> Date </th>
-            <td mat-cell *matCellDef="let element"> {{element.madeOnDate | dateToReadable}} </td>
+            <td mat-cell *matCellDef="let element" class="colored-item"> {{element.madeOnDate | dateToReadable}} </td>
         </ng-container>
 
         <tr mat-header-row *matHeaderRowDef="columns"></tr>

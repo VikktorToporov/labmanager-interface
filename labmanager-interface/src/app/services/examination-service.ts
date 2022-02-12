@@ -26,27 +26,19 @@ export class ExaminationService {
         return this.http.get(`${this.baseUrl}_type/laboratoryExaminationTypes/${id}`);
     }
 
-    // TODO: fix calls
     addExamination(values: {
         completed: boolean,
         information: string,
         madeOnDate: string,
-    }, patient_id, employee_id, examinationType_id, laboratory_id) {
+    }, patient_id, employee_id, examinationType_id) {
         return this.http.post(`${this.baseUrl}/create/${examinationType_id}/${patient_id}/${employee_id}`, values);
     }
 
-    addExaminationToLab(labId: string, examId: string) {
-        return this.http.put(`http://localhost:8080/laboratory/${labId}/addExamination/${examId}`, null);
-    }
-
     updateExamination(values: {
+        id: string,
         completed: boolean,
         information: string,
-        employee_id: string,
-        patient_id: string,
         madeOnDate: string,
-        examinationType_id: string,
-        laboratory_id: string,
     }) {
         return this.http.put(`${this.baseUrl}/update`, values);
     }

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { EmployeeService } from 'src/app/services/employee-service';
+import { verifyGeneric, verifyName } from 'src/app/shared-methods/validations';
 
 @Component({
   selector: 'app-edit-lab',
@@ -39,17 +40,21 @@ export class EditLabComponent implements OnInit {
       const name = this.laboratoryForm.value.name;
       const id = this.laboratoryForm.value.id;
 
-      const laboratory = {
-        id: id,
-        hospitalName: name,
-      };
-
-      this.employeeService.updateLaboratory(laboratory)
-        .subscribe((result: any)=> {
-          if (result) {
-            // window.location.href = '/Get/Employees';
-          }
-        });
+      if (verifyName(name) && verifyGeneric(id)) {
+        const laboratory = {
+          id: id,
+          hospitalName: name,
+        };
+  
+        this.employeeService.updateLaboratory(laboratory)
+          .subscribe((result: any)=> {
+            if (result) {
+              window.location.href = '/Get/Employees';
+            }
+          });
+      } else {
+        console.log('Data failed verification!');
+      }
     } else {
       console.log('Invalid Form!');
     }

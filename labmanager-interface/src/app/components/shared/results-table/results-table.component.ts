@@ -1,8 +1,10 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Inject, Input, OnInit, Output } from '@angular/core';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { TableDataType } from 'src/app/enums/table-data';
 import { EmployeeService } from 'src/app/services/employee-service';
 import { ExaminationService } from 'src/app/services/examination-service';
 import { PatientService } from 'src/app/services/patient-service';
+import { verifyGeneric, verifyText } from 'src/app/shared-methods/validations';
 
 @Component({
   selector: 'app-results-table',
@@ -18,16 +20,19 @@ export class ResultsTableComponent implements OnInit {
   columns: string[] = [];
   enumTableDataType = TableDataType;
   
-  constructor(protected patientService: PatientService, protected examinationService: ExaminationService, protected employeeService: EmployeeService) { }
+  localStorageUserId: string;
+  constructor(protected patientService: PatientService, protected examinationService: ExaminationService, protected employeeService: EmployeeService, public dialog: MatDialog) { }
 
   ngOnInit(): void {
+    this.localStorageUserId = localStorage.getItem('userId');
+
     this.constructColumns(this.dataType);
   }
 
   constructColumns(dataType: TableDataType) {
     switch(dataType) {
       case TableDataType.PatientViewResults:
-        this.columns = ['Test', 'Status', 'Employee', 'Date','Actions'];
+        this.columns = ['Test', 'Status', 'Employee', 'Date', 'Actions'];
         break;
 
       case TableDataType.EmployeeViewResults:
@@ -62,15 +67,15 @@ export class ResultsTableComponent implements OnInit {
         break;
 
       case TableDataType.EmployeeViewPatients:
-        if (data && data.patientId) {
-          return '/Edit/Patient/' + data.patientId;
+        if (data && data.id) {
+          return '/Edit/Patient/' + data.id;
         }
 
         break;
 
       case TableDataType.EmployeeViewEmployees:
-        if (data && data.employeeId) {
-          return '/Edit/Employee/' + data.employeeId;
+        if (data && data.id) {
+          return '/Edit/Employee/' + data.id;
         }
 
         break;
@@ -91,15 +96,15 @@ export class ResultsTableComponent implements OnInit {
         break;
 
       case TableDataType.EmployeeViewPatients:
-        if (data && data.patientId) {
-          this.removePatient(data.patientId);
+        if (data && data.id) {
+          this.removePatient(data.id);
         }
 
         break;
 
       case TableDataType.EmployeeViewEmployees:
-        if (data && data.employeeId) {
-          this.removeEmployee(data.employeeId);
+        if (data && data.id) {
+          this.removeEmployee(data.id);
         }
 
         break;
@@ -107,7 +112,7 @@ export class ResultsTableComponent implements OnInit {
   }
 
   removeExamination(id: string) {
-    if (id != null && id != undefined) {
+    if (verifyGeneric(id)) {
       this.examinationService.removeExamination(id)
       .subscribe(result => {
         this.refreshResults.emit();
@@ -116,7 +121,8 @@ export class ResultsTableComponent implements OnInit {
   }
 
   removePatient(id: string) {
-    if (id != null && id != undefined && id.length > 0) {
+    if (verifyGeneric(id)) {
+
       this.patientService.removePatient(id)
       .subscribe(result => {
         this.refreshResults.emit();
@@ -125,11 +131,35 @@ export class ResultsTableComponent implements OnInit {
   }
 
   removeEmployee(id: string) {
-    if (id != null && id != undefined && id.length > 0) {
+    if (verifyGeneric(id)) {
       this.employeeService.removeEmployee(id)
       .subscribe(result => {
         this.refreshResults.emit();
       });
     }
+  }
+
+  openResultInfoDialog(information: string): void {
+    if (verifyText(information)) {
+      this.dialog.open(ResultInfoDialog, {
+        width: '250px',
+        data: information,
+      });
+    }
+  }
+}
+
+@Component({
+  selector: 'result-info-dialog',
+  template: `{{data}}`,
+})
+export class ResultInfoDialog {
+  constructor(
+    public dialogRef: MatDialogRef<ResultInfoDialog>,
+    @Inject(MAT_DIALOG_DATA) public data: string,
+  ) {}
+
+  onNoClick(): void {
+    this.dialogRef.close();
   }
 }

@@ -57,9 +57,12 @@
           <div class="done-info">
             <div>
               <span>Name: <strong *ngIf="examinationForm.value.name; else notSelected">{{examinationForm.value.name}}</strong></span>
-              <span>Description: <strong *ngIf="examinationForm.value.description; else notSelected">{{examinationForm.value.description}}</strong></span>
               <span>Price: <strong *ngIf="examinationForm.value.price; else notSelected">{{examinationForm.value.price}}</strong></span>
-
+              <span>Description: </span>
+              <span>
+                <strong *ngIf="examinationForm.value.description; else notSelected">{{examinationForm.value.description}}</strong>
+              </span>
+              
               <ng-template #notSelected>
                 <strong style="color: #ff8989">Not Selected</strong>
               </ng-template>

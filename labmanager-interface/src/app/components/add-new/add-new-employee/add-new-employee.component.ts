@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { EmployeeService } from 'src/app/services/employee-service';
+import { verifyUsername, verifyPass, verifyEmail, verifyGeneric } from 'src/app/shared-methods/validations';
 
 @Component({
   selector: 'app-add-new-employee',
@@ -29,23 +30,27 @@ export class AddNewEmployeeComponent implements OnInit {
       const email = this.employeeForm.value.email;
       const laboratory_id = this.employeeForm.value.laboratory_id;
 
-      const employee = {
-        username: username,
-        password: password,
-        email: email,
-      };
-
-      this.employeeService.addEmployee(employee)
-        .subscribe((result: any)=> {
-          if (result && result.id) {
-            this.employeeService.addEmployeeToLab(laboratory_id, result.id)
-              .subscribe((result: any)=> {
-                if (result) {
-                   window.location.href = '/Get/Employees';
-                }
-              });
-          }
-        });
+      if (verifyUsername(username) && verifyPass(password) && verifyEmail(email) && verifyGeneric(laboratory_id)) {
+        const employee = {
+          username: username,
+          password: password,
+          email: email,
+        };
+  
+        this.employeeService.addEmployee(employee)
+          .subscribe((result: any)=> {
+            if (result && result.id) {
+              this.employeeService.addEmployeeToLab(laboratory_id, result.id)
+                .subscribe((result: any)=> {
+                  if (result) {
+                     window.location.href = '/Get/Employees';
+                  }
+                });
+            }
+          });
+      } else {
+        console.log('Data failed verification!');
+      }
     } else {
       console.log('Invalid Form!');
     }

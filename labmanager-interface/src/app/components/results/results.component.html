@@ -1,6 +1,7 @@
 <div class="results">
-    <h2>{{tableTitle ? tableTitle : tableType}}</h2>
+    <h2>{{tableTitle}}</h2>
     <div class="results-wrapper">
-        <app-results-table [data]="data" [dataType]="dataType" (refresh-results)="refreshResults()" class="small-table"></app-results-table>
+        <app-results-table *ngIf="!noData" [data]="data" [dataType]="dataType" (refresh-results)="refreshResults()" class="small-table"></app-results-table>
+        <span *ngIf="noData">No data</span>
     </div>
 </div>

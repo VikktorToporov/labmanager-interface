@@ -7,12 +7,22 @@
             margin-right: 10px;
             cursor: pointer;
             font-size: 15px;
-            color: #666666;
+            color: #00000047;
             transition: .3s;
 
             &:hover {
                 color: #346cd8;
             }
         }
+    }
+
+    td {
+        color: #b7b7b7;
+    }
+
+    .colored-item {
+        color: #346cd8;
+        font-weight: 500;
+        width: 100px;
     }
 }

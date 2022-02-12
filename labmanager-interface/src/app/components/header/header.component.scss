@@ -6,10 +6,12 @@
     right: 0;
     color: white;
     display: flex;
+    flex-direction: column;
     justify-content: space-between;
     align-items: center;
     padding: 10px 20px;
-
+    z-index: 999;
+    
     &-title {
         cursor: pointer;
         font-weight: 500;
@@ -17,6 +19,7 @@
 
     &-links {
         list-style: none;
+        display: none;
 
         li {
             display: inline-block;
@@ -26,6 +29,10 @@
 
         .selected {
             font-weight: 700;
+        }
+
+        &-mobile {
+            display: block;
         }
     }
 
@@ -52,7 +59,6 @@
 
         &_arrow {
             margin-left: 10px;
-            margin-top: -4px;
            
             i {
                 cursor: pointer;
@@ -63,5 +69,21 @@
             position: absolute;
             background-color: #e3e3e3;
         }
+    }
+}
+
+@media only screen and (min-width: 330px) {
+    .header {
+        flex-direction: row;
+    }
+}
+
+@media only screen and (min-width: 700px) {
+    .header-links {
+        display: block;
+    }
+
+    .header-links-mobile {
+        display: none;
     }
 }

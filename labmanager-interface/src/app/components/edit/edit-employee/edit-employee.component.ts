@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { EmployeeService } from 'src/app/services/employee-service';
+import { verifyEmail, verifyGeneric, verifyPass } from 'src/app/shared-methods/validations';
 
 @Component({
   selector: 'app-edit-employee',
@@ -48,29 +49,32 @@ export class EditEmployeeComponent implements OnInit {
         id: this.employeeId,
       };
 
-      if (this.employeeDetails.email !== email) {
+      if (verifyEmail(email) && this.employeeDetails.email !== email) {
         employee['email'] = email;
       }
       
-      if (password && password.length > 0) {
+      if (verifyPass(password)) {
         employee['password'] = password;
       }
       
       this.employeeService.updateEmployee(employee)
         .subscribe((result: any)=> {
           if (result) {
-            // window.location.href = '/Get/Employees';
+            window.location.href = '/Get/Employees';
           }
         });
+
     } else {
       console.log('Invalid Form!');
     }
   }
 
   remove() {
-    this.employeeService.removeEmployee(this.employeeId)
-      .subscribe((result: any)=> {
-        window.location.href = '/Get/Employees';
-    });
+    if (verifyGeneric(this.employeeId)) {
+      this.employeeService.removeEmployee(this.employeeId)
+        .subscribe((result: any)=> {
+          window.location.href = '/Get/Employees';
+      });
+    }
   }
 }

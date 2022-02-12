@@ -6,15 +6,15 @@
     
 
     <div class="lab-wrapper">
-        <div class="lab-links">
-            <ng-container *ngIf="publicLinks && publicLinks.length > 0">
-                <ng-container *ngFor="let link of publicLinks">
+        <div class="lab-links" [ngClass]="(isEmployee === false && publicLinks.length === 1) ? 'lab-links-centered' : ''">
+            <ng-container *ngIf="isEmployee === true && privateLinks && privateLinks.length > 0">
+                <ng-container *ngFor="let link of privateLinks">
                     <app-info-box [title]="link.title" [icon]="link.icon" [link]="link.link"></app-info-box>
                 </ng-container>
             </ng-container>
-            
-            <ng-container *ngIf="isEmployee === true && privateLinks && privateLinks.length > 0">
-                <ng-container *ngFor="let link of privateLinks">
+
+            <ng-container *ngIf="publicLinks && publicLinks.length > 0">
+                <ng-container *ngFor="let link of publicLinks">
                     <app-info-box [title]="link.title" [icon]="link.icon" [link]="link.link"></app-info-box>
                 </ng-container>
             </ng-container>

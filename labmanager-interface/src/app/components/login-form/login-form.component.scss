@@ -45,3 +45,24 @@
         font-weight: 500;
     }
 }
+
+.logo {
+    position: absolute;
+    top: 27px;
+    left: 30px;
+    margin: 0;
+    padding: 0;
+    font-size: 20px;
+}
+
+@media only screen and (max-width: 300px) {
+    .logo,
+    .form-toggle {
+        position: relative;
+        text-align: center;
+        display: block;
+        top: 100px;
+        left: auto;
+        right: 0;
+    }
+}

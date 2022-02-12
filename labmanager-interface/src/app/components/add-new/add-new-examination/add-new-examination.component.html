@@ -95,8 +95,9 @@
               <span>Examination Type: <strong *ngIf="examinationForm.value.examinationType_id | nameFromValueObject: examinationTypes; else notSelected">{{examinationForm.value.examinationType_id | nameFromValueObject: examinationTypes}}</strong></span>
               <span>Status: <strong *ngIf="(examinationForm.value.completed | nameFromValueObject: statuses) != ''; else notSelected">{{examinationForm.value.completed | nameFromValueObject: statuses}}</strong></span>
               <span>Date: <strong *ngIf="examinationForm.value.madeOnDate | dateToReadable; else notSelected">{{examinationForm.value.madeOnDate | dateToReadable}}</strong></span>
-              <span>Information: <span *ngIf="examinationForm.value.information; else notSelected">{{examinationForm.value.information}}</span></span>
-
+              <span>Information:</span>
+              <span *ngIf="examinationForm.value.information; else notSelected">{{examinationForm.value.information}}</span>
+              
               <ng-template #notSelected>
                 <strong style="color: #ff8989">Not Selected</strong>
               </ng-template>

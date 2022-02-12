@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { ExaminationService } from 'src/app/services/examination-service';
+import { verifyGeneric, verifyName, verifyText } from 'src/app/shared-methods/validations';
 
 @Component({
   selector: 'app-add-new-service',
@@ -29,23 +30,27 @@ export class AddNewServiceComponent implements OnInit {
       const price = this.examinationForm.value.price;
       const laboratory_id = this.examinationForm.value.laboratory_id;
 
-      const examinationType = {
-        name: name,
-        description: description,
-        price: price,
-      };
-
-      this.examinationService.addExaminationType(examinationType)
-        .subscribe((result: any)=> {
-          if (result && result.id) {
-            this.examinationService.addExaminationTypeToLab(laboratory_id, result.id)
-              .subscribe((result: any)=> {
-                if (result) {
-                   window.location.href = '/Services';
-                }
-              });
-          }
-        });
+      if (verifyName(name) && verifyText(description) && verifyGeneric(price) && verifyGeneric(laboratory_id)) {
+        const examinationType = {
+          name: name,
+          description: description,
+          price: price,
+        };
+  
+        this.examinationService.addExaminationType(examinationType)
+          .subscribe((result: any)=> {
+            if (result && result.id) {
+              this.examinationService.addExaminationTypeToLab(laboratory_id, result.id)
+                .subscribe((result: any)=> {
+                  if (result) {
+                     window.location.href = '/Services';
+                  }
+                });
+            }
+          });
+      } else {
+        console.log('Data failed verification!');
+      }
     } else {
       console.log('Invalid Form!');
     }

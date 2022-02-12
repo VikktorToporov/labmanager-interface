@@ -67,3 +67,22 @@ a {
     text-decoration: none;
   }
 }
+
+tr:nth-child(even) {
+  background: #346cd80d;
+}
+
+.mat-elevation-z8 {
+  box-shadow: none;
+}
+
+.mat-table {
+  background: transparent;
+}
+
+::ng-deep {
+  .mat-elevation-z8 {
+    box-shadow: none;
+  }
+}
+

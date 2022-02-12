@@ -1,73 +1,57 @@
 <div class="form">
     <h2>Edit examination</h2>
-    
+
     <form *ngIf="examinationForm" [formGroup]="examinationForm">
       <mat-stepper [linear]="isLinear" #stepper>
-          <mat-step [stepControl]="examinationForm">
-            <ng-template matStepLabel>Select Patient</ng-template>
-            <h3>Select the patient</h3>
-  
-            <mat-form-field appearance="fill">
-              <mat-label>Patient</mat-label>
-  
-              <mat-select formControlName="patient_id">
-                <mat-option *ngFor="let patient of patients" [value]="patient.id">
-                  {{patient.name}}
-                </mat-option>
-              </mat-select>
-  
-            </mat-form-field>
-  
-            <div class="btn-wrapper">
-              <button mat-raised-button color="primary" matStepperNext>Next</button>
+        <mat-step [stepControl]="examinationForm">
+          <ng-template matStepLabel>Set the examination information</ng-template>
+
+          <div class="long-form-field">
+            <div class="form-field-wrapper">
+              <h3>Set the examination information</h3>
+
+              <mat-form-field appearance="fill">
+                <mat-label>Information</mat-label>
+    
+                <textarea matInput formControlName="information" placeholder="" style="height: 100px;"></textarea>
+              </mat-form-field>
             </div>
-          </mat-step>
-  
-          <mat-step [stepControl]="examinationForm">
-            <ng-template matStepLabel>Select Examination Type</ng-template>
-            <h3>Select the examination type</h3>
-  
-            <mat-form-field appearance="fill">
-              <mat-label>Examination Type</mat-label>
-  
-              <mat-select formControlName="examinationType_id">
-                <mat-option *ngFor="let examinationType of examinationTypes" [value]="examinationType.id">
-                  {{examinationType.name}}
-                </mat-option>
-              </mat-select>
-            </mat-form-field>
-  
-            <div class="btn-wrapper">
-              <button mat-raised-button matStepperPrevious>Back</button>
-              <button mat-raised-button color="primary" matStepperNext>Next</button>
+          </div>
+
+          <div class="btn-wrapper">
+            <button mat-raised-button color="primary" matStepperNext>Next</button>
+          </div>
+        </mat-step>
+        
+        <mat-step [stepControl]="examinationForm">
+          <ng-template matStepLabel>Set Status</ng-template>
+          <h3>Set Status</h3>
+
+          <div class="long-form-field">
+            <div class="form-field-wrapper">
+              <mat-form-field appearance="fill">
+                <mat-label>Status</mat-label>
+                
+                <mat-select formControlName="completed">
+                  <mat-option *ngFor="let status of statuses" [value]="status.id">
+                    {{status.name}}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
             </div>
-          </mat-step>
+          </div>
+
+          <div class="btn-wrapper">
+            <button mat-raised-button matStepperPrevious>Back</button>
+            <button mat-raised-button color="primary" matStepperNext>Next</button>
+          </div>
+        </mat-step>
+
           <mat-step [stepControl]="examinationForm">
-            <ng-template matStepLabel>Set Details</ng-template>
-  
+            <ng-template matStepLabel>Set Date</ng-template>
+            <h3>Set Date</h3>
+
             <div class="long-form-field">
-              <div class="form-field-wrapper">
-                <h3>Select the examination details</h3>
-  
-                <mat-form-field appearance="fill">
-                  <mat-label>Information</mat-label>
-      
-                  <textarea matInput formControlName="information" placeholder="" style="height: 100px;"></textarea>
-                </mat-form-field>
-              </div>
-              
-              <div class="form-field-wrapper">
-                <mat-form-field appearance="fill">
-                  <mat-label>Status</mat-label>
-                  
-                  <mat-select formControlName="completed">
-                    <mat-option *ngFor="let status of statuses" [value]="status.id">
-                      {{status.name}}
-                    </mat-option>
-                  </mat-select>
-                </mat-form-field>
-              </div>
-              
               <div class="form-field-wrapper">
                 <mat-form-field appearance="fill">
                   <mat-label>Date</mat-label>
@@ -91,12 +75,11 @@
   
             <div class="done-info">
               <div>
-                <span>Patient: <strong *ngIf="examinationForm.value.patient_id | nameFromValueObject: patients; else notSelected">{{examinationForm.value.patient_id | nameFromValueObject: patients}}</strong></span>
-                <span>Examination Type: <strong *ngIf="examinationForm.value.examinationType_id | nameFromValueObject: examinationTypes; else notSelected">{{examinationForm.value.examinationType_id | nameFromValueObject: examinationTypes}}</strong></span>
                 <span>Status: <strong *ngIf="(examinationForm.value.completed | nameFromValueObject: statuses) != ''; else notSelected">{{examinationForm.value.completed | nameFromValueObject: statuses}}</strong></span>
                 <span>Date: <strong *ngIf="examinationForm.value.madeOnDate | dateToReadable; else notSelected">{{examinationForm.value.madeOnDate | dateToReadable}}</strong></span>
-                <span>Information: <span *ngIf="examinationForm.value.information; else notSelected">{{examinationForm.value.information}}</span></span>
-  
+                <span>Information: </span>
+                <span *ngIf="examinationForm.value.information; else notSelected">{{examinationForm.value.information}}</span>
+                
                 <ng-template #notSelected>
                   <strong style="color: #ff8989">Not Selected</strong>
                 </ng-template>

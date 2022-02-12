@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { PatientService } from 'src/app/services/patient-service';
+import { verifyEmail, verifyGeneric, verifyPass } from 'src/app/shared-methods/validations';
 
 @Component({
   selector: 'app-edit-patient',
@@ -48,18 +49,18 @@ export class EditPatientComponent implements OnInit {
         id: this.patientId,
       };
 
-      if (this.patientDetails.email !== email) {
+      if (verifyEmail(email) && this.patientDetails.email !== email) {
         patient['email'] = email;
       }
       
-      if (password && password.length > 0) {
+      if (verifyPass(password)) {
         patient['password'] = password;
       }
 
       this.patientService.updatePatient(patient)
         .subscribe((result: any)=> {
           if (result) {
-            // window.location.href = '/Get/Patients';
+            window.location.href = '/Get/Patients';
           }
         });
     } else {
@@ -68,9 +69,11 @@ export class EditPatientComponent implements OnInit {
   }
 
   remove() {
-    this.patientService.removePatient(this.patientId)
-      .subscribe((result: any)=> {
-        window.location.href = '/Get/Patients';
-    });
+    if (verifyGeneric(this.patientId)) {
+      this.patientService.removePatient(this.patientId)
+        .subscribe((result: any)=> {
+          window.location.href = '/Get/Patients';
+      });
+    }
   }
 }

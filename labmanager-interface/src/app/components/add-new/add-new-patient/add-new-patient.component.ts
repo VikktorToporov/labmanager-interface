@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { PatientService } from 'src/app/services/patient-service';
+import { verifyEmail, verifyGeneric, verifyPass, verifyUsername } from 'src/app/shared-methods/validations';
 
 @Component({
   selector: 'app-add-new-patient',
@@ -29,23 +30,27 @@ export class AddNewPatientComponent implements OnInit {
       const email = this.patientForm.value.email;
       const laboratory_id = this.patientForm.value.laboratory_id;
 
-      const patient = {
-        username: username,
-        password: password,
-        email: email,
-      };
-
-      this.patientService.addPatient(patient)
-        .subscribe((result: any)=> {
-          if (result && result.id) {
-            this.patientService.addPatientToLab(laboratory_id, result.id)
-              .subscribe((result: any)=> {
-                if (result) {
-                   window.location.href = '/Get/Patients';
-                }
-              });
-          }
-        });
+      if (verifyUsername(username) && verifyPass(password) && verifyEmail(email) && verifyGeneric(laboratory_id)) {
+        const patient = {
+          username: username,
+          password: password,
+          email: email,
+        };
+  
+        this.patientService.addPatient(patient)
+          .subscribe((result: any)=> {
+            if (result && result.id) {
+              this.patientService.addPatientToLab(laboratory_id, result.id)
+                .subscribe((result: any)=> {
+                  if (result) {
+                     window.location.href = '/Get/Patients';
+                  }
+                });
+            }
+          });
+      } else {
+        console.log('Data failed verification!');
+      }
     } else {
       console.log('Invalid Form!');
     }

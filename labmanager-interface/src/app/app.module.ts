@@ -41,8 +41,10 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
 import { MomentDateAdapter } from '@angular/material-moment-adapter';
 import { MatTooltipModule } from '@angular/material/tooltip';
-
+import { MatDialogModule } from '@angular/material/dialog';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { PatientsComponent } from './components/patients/patients.component';
+import { EmployeesComponent } from './components/employees/employees.component';
 
 export const DateFormats = {
   parse: {
@@ -78,6 +80,8 @@ export const DateFormats = {
     AddNewLabComponent,
     EditLabComponent,
     EditExaminationComponent,
+    PatientsComponent,
+    EmployeesComponent,
   ],
   imports: [
     BrowserModule,
@@ -96,6 +100,7 @@ export const DateFormats = {
     MatDatepickerModule,
     MatNativeDateModule,
     MatTooltipModule,
+    MatDialogModule,
   ],
   providers: [
     AuthGuard,
