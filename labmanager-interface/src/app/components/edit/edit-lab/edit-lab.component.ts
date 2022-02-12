@@ -49,7 +49,9 @@ export class EditLabComponent implements OnInit {
         this.employeeService.updateLaboratory(laboratory)
           .subscribe((result: any)=> {
             if (result) {
-              window.location.href = '/Get/Employees';
+              localStorage.setItem('labName', name);
+              
+              window.location.href = '/Lab';
             }
           });
       } else {

@@ -107,7 +107,10 @@ export class ResultsComponent implements OnInit {
   }
 
   getMyResults() {
-    if ((this.isEmployee && this.userId && this.userId != this.localStorageUserId) || (!this.isEmployee && this.userId === this.localStorageUserId)) {
+    if (this.isEmployee && this.userId && this.userId != this.localStorageUserId) {
+      this.tableTitle = 'Patient Results';
+      this.getPatientResults(this.userId);
+    } else if ((!this.isEmployee && this.userId === this.localStorageUserId)) {
       this.getPatientResults(this.userId);
     } else if (this.isEmployee && this.userId === this.localStorageUserId) {
       this.getPatientResultsByEmployee(this.userId);
